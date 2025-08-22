@@ -5,7 +5,7 @@
     </div>
     <ul class="nav flex-column">
         <li class="nav-item">
-            <a class="nav-link active" href="#"><i class="bi bi-speedometer2"></i> <span>Dashboard</span></a>
+            <a class="nav-link active" href="{{ route('dashboard') }}"><i class="bi bi-speedometer2"></i> <span>Dashboard</span></a>
         </li>
         <li class="nav-item">
             <a class="nav-link d-flex justify-content-between align-items-center" href="#" data-bs-toggle="collapse" data-bs-target="#productsMenu">
