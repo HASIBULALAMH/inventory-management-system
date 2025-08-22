@@ -8,6 +8,9 @@
 	<meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
 	<meta name="author" content="AdminKit">
 	<meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+	<!--sidebar-->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link rel="shortcut icon" href="{{asset('assets/img/icons/icon-48x48.png')}}" />
@@ -22,16 +25,16 @@
 
 <body>
 	<div class="wrapper">
-		
-        @include('admin.partials.sidebar')
+
+		@include('admin.partial.sidebar')
 		<div class="main">
-         @include('admin.partials.navbar')
+			@include('admin.partial.navbar')
 
 			<main class="content">
-                 @yield('content')
+				@yield('content')
 			</main>
 
-			 @include('admin.partials.footer')
+			@include('admin.partial.footer')
 		</div>
 	</div>
 
