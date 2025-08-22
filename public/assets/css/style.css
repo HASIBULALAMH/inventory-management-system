@@ -1,0 +1,154 @@
+/* LIGHT/DARK MODE */
+body.light-mode {
+    background: #f5f6fa;
+    color: #212529;
+}
+
+body.dark-mode {
+    background: #121212;
+    color: #f8f9fa;
+}
+
+body.dark-mode .sidebar {
+    background: #1c1c1c;
+}
+
+body.dark-mode .card-neumorphic {
+    background: #1f1f1f;
+    color: #f8f9fa;
+    box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.5), -8px -8px 15px rgba(255, 255, 255, 0.05);
+}
+
+/* SIDEBAR - Glass + Animated Gradient + Mouse Reactive */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    position: fixed;
+    color: #fff;
+    border-radius: 0 20px 20px 0;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    overflow: hidden;
+    transition: 0.3s;
+}
+
+.sidebar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 0 20px 20px 0;
+    background: linear-gradient(270deg, #ff0000, #ff9900, #33ff00, #00ffff, #3333ff, #ff00ff, #ff0000);
+    background-size: 1400% 1400%;
+    animation: gradientMove 15s ease infinite;
+    opacity: 0.3;
+    z-index: 0;
+}
+
+@keyframes gradientMove {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Mouse reactive gradient */
+.sidebar:hover::before {
+    filter: brightness(1.2);
+}
+
+/* Nav links above gradient */
+.sidebar .nav-link {
+    position: relative;
+    z-index: 1;
+    color: #fff;
+    font-weight: 500;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 12px;
+    transition: 0.3s;
+}
+
+.sidebar .nav-link:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+}
+
+.sidebar .nav-link.active {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+.sidebar .collapse .nav-link {
+    padding-left: 35px;
+}
+
+.sidebar .nav-link:hover i {
+    color: #fff;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+    transition: 0.3s;
+}
+
+/* MAIN CONTENT */
+.main-content {
+    margin-left: 250px;
+    transition: 0.3s;
+}
+
+/* NEUMORPHIC CARDS */
+.card-neumorphic {
+    border-radius: 15px;
+    box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.1), -8px -8px 15px rgba(255, 255, 255, 0.7);
+    transition: 0.3s;
+}
+
+.card-neumorphic:hover {
+    transform: translateY(-5px);
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.15), -10px -10px 20px rgba(255, 255, 255, 0.8);
+}
+
+/* GRADIENT CARDS */
+.bg-gradient-primary {
+    background: linear-gradient(135deg, #6f42c1, #20c997) !important;
+}
+
+.bg-gradient-success {
+    background: linear-gradient(135deg, #28a745, #20c997) !important;
+}
+
+.bg-gradient-warning {
+    background: linear-gradient(135deg, #ffc107, #ffdd57) !important;
+}
+
+.bg-gradient-danger {
+    background: linear-gradient(135deg, #dc3545, #ff6b6b) !important;
+}
+
+/* NOTIFICATION ANIMATION */
+.animate-bounce {
+    animation: bounce 1.5s infinite;
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-6px);
+    }
+}

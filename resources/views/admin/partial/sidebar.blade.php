@@ -1,44 +1,34 @@
-<nav id="sidebar" class="sidebar">
-    <div class="sidebar-content">
-        <a class="sidebar-brand" href="{{ route('dashboard') }}">
-            <i class="align-middle" data-feather="box"></i>
-            <span class="align-middle">Admin Panel</span>
-        </a>
-
-        <ul class="sidebar-nav">
-            <li class="sidebar-header">Main</li>
-            <li class="sidebar-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
-                <a href="{{ route('dashboard') }}" class="sidebar-link">
-                    <i class="align-middle" data-feather="sliders"></i>
-                    <span class="align-middle">Dashboard</span>
-                </a>
-            </li>
-
-            <li class="sidebar-header">Management</li>
-            <li class="sidebar-item">
-                <a href="#" class="sidebar-link">
-                    <i class="align-middle" data-feather="users"></i>
-                    <span class="align-middle">Users</span>
-                </a>
-            </li>
-            <li class="sidebar-item">
-                <a href="#" class="sidebar-link">
-                    <i class="align-middle" data-feather="package"></i>
-                    <span class="align-middle">Products</span>
-                </a>
-            </li>
-            <li class="sidebar-item">
-                <a href="#" class="sidebar-link">
-                    <i class="align-middle" data-feather="shopping-bag"></i>
-                    <span class="align-middle">Orders</span>
-                </a>
-            </li>
-            <li class="sidebar-item">
-                <a href="#" class="sidebar-link">
-                    <i class="align-middle" data-feather="bar-chart-2"></i>
-                    <span class="align-middle">Reports</span>
-                </a>
-            </li>
-        </ul>
+<div class="sidebar" id="sidebar">
+    <div class="sidebar-header text-center py-4">
+        <img src="assets/img/logo.png" alt="Logo" style="width:60px;" class="mb-2 rounded-circle shadow-sm">
+        <h4 class="text-white">InventoryPro</h4>
     </div>
-</nav>
+    <ul class="nav flex-column">
+        <li class="nav-item">
+            <a class="nav-link active" href="#"><i class="bi bi-speedometer2"></i> <span>Dashboard</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link d-flex justify-content-between align-items-center" href="#" data-bs-toggle="collapse" data-bs-target="#productsMenu">
+                <span><i class="bi bi-box-seam"></i> Products</span>
+                <i class="bi bi-caret-down-fill"></i>
+            </a>
+            <ul class="collapse nav flex-column ms-3" id="productsMenu">
+                <li><a class="nav-link" href="#">All Products</a></li>
+                <li><a class="nav-link" href="#">Add Product</a></li>
+                <li><a class="nav-link" href="#">Inventory</a></li>
+            </ul>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link d-flex justify-content-between align-items-center" href="#" data-bs-toggle="collapse" data-bs-target="#categoriesMenu">
+                <span><i class="bi bi-tags-fill"></i> Categories</span>
+                <i class="bi bi-caret-down-fill"></i>
+            </a>
+            <ul class="collapse nav flex-column ms-3" id="categoriesMenu">
+                <li><a class="nav-link" href="#">All Categories</a></li>
+                <li><a class="nav-link" href="#">Add Category</a></li>
+            </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-people-fill"></i> <span>Suppliers</span></a></li>
+        <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-bag-check-fill"></i> <span>Orders</span></a></li>
+    </ul>
+</div>
