@@ -16,8 +16,8 @@
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="pages-profile.html">
-                    <i class="align-middle" data-feather="user"></i> <span class="align-middle">Profile</span>
+                <a class="sidebar-link" href="{{route('roles.list')}}">
+                    <i class="align-middle" data-feather="user"></i> <span class="align-middle">Roles</span>
                 </a>
             </li>
 

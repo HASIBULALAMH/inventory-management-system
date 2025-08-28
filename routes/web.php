@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\LoginController;
+use App\Http\Controllers\Admin\RoleController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -20,6 +21,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => 'admin'], function () {
         //dashboard
         Route::get('dashboard',[DashboardController::class,'Dashboard'])->name('admin.dashboard');
+
+        //role
+        Route::get('roles', [RoleController::class, 'list'])->name('roles.list');
     });
 
 });
