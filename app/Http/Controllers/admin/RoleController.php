@@ -11,4 +11,9 @@ class RoleController extends Controller
     {
         return view('admin.role.list');
     }
+
+    public function create()
+    {
+        return view('admin.role.create');
+    }
 }

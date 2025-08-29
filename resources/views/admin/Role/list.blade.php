@@ -45,7 +45,7 @@
     <div class="card-header d-flex flex-wrap align-items-center justify-content-between gap-2">
       <h5 class="mb-0"><i class="fa-solid fa-user-shield me-2"></i>Role Management</h5>
       <!-- ✅ Only Create Role button -->
-      <a href="#" class="btn btn-light btn-sm">
+      <a href="{{ route('roles.create') }}" class="btn btn-light btn-sm">
         <i class="fa-solid fa-plus me-1"></i>Create Role
       </a>
     </div>
@@ -57,6 +57,7 @@
             <tr>
               <th style="width: 80px;">ID</th>
               <th>Role Name</th>
+              <th>ROles icon</th>
               <th style="width: 160px;">Status</th>
               <th style="width: 160px;" class="text-end">Actions</th>
             </tr>
@@ -65,6 +66,9 @@
             <tr>
               <td>#1</td>
               <td>Super Admin</td>
+              <td>
+                <i class="fa-solid fa-user-shield"></i>
+              </td>
               <td>
                 <span class="status-dot dot-active"></span>
                 <span class="badge text-bg-success">Active</span>

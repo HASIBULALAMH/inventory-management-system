@@ -24,6 +24,7 @@ Route::group(['middleware' => ['auth']], function () {
 
         //role
         Route::get('roles', [RoleController::class, 'list'])->name('roles.list');
+        Route::get('roles/create', [RoleController::class, 'create'])->name('roles.create');
     });
 
 });
