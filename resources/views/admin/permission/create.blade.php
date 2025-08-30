@@ -35,13 +35,13 @@
   <div class="card permission-card">
     <div class="card-header d-flex align-items-center justify-content-between">
       <h5 class="mb-0"><i class="fa-solid fa-lock me-2"></i>Create New Permission</h5>
-      <a href="{{ route('permissions.list') }}" class="btn btn-light btn-sm">
+      <a href="{{ route('admin.permissions.list') }}" class="btn btn-light btn-sm">
         <i class="fa-solid fa-arrow-left me-1"></i>Back to Permissions
       </a>
     </div>
 
     <div class="card-body">
-      <form action="" method="POST">
+      <form action="{{ route('admin.permissions.store') }}" method="POST">
         @csrf
 
         <!-- Permission Name -->
@@ -63,8 +63,8 @@
         <div class="mb-3">
           <label for="status" class="form-label">Status</label>
           <select class="form-select" id="status" name="status" required>
-            <option value="1" selected>Active</option>
-            <option value="0">Inactive</option>
+            <option value="active" selected>Active</option>
+            <option value="inactive">Inactive</option>
           </select>
         </div>
 

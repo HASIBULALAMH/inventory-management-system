@@ -16,13 +16,13 @@
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="{{route('roles.list')}}">
+                <a class="sidebar-link" href="{{route('admin.roles.list')}}">
                     <i class="align-middle" data-feather="user"></i> <span class="align-middle">Roles</span>
                 </a>
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="{{route('permissions.list')}}">
+                <a class="sidebar-link" href="{{route('admin.permissions.list')}}">
                     <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Permissions</span>
                 </a>
             </li>

@@ -45,7 +45,7 @@
     <div class="card-header d-flex flex-wrap align-items-center justify-content-between gap-2">
       <h5 class="mb-0"><i class="fa-solid fa-user-shield me-2"></i>Role Management</h5>
       <!-- ✅ Only Create Role button -->
-      <a href="{{ route('roles.create') }}" class="btn btn-light btn-sm">
+      <a href="{{ route('admin.roles.create') }}" class="btn btn-light btn-sm">
         <i class="fa-solid fa-plus me-1"></i>Create Role
       </a>
     </div>
@@ -83,10 +83,10 @@
               </td>
               <td class="text-end">
                 <div class="d-flex gap-2 justify-content-end">
-                  <a href="{{ route('roles.edit', $role->id) }}" class="btn btn-outline-primary btn-sm rounded-circle" data-bs-toggle="tooltip" data-bs-title="Edit" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;">
+                  <a href="{{ route('admin.roles.edit', $role->id) }}" class="btn btn-outline-primary btn-sm rounded-circle" data-bs-toggle="tooltip" data-bs-title="Edit" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;">
                     <i class="fa-regular fa-pen-to-square"></i>
                   </a>
-                  <form action="{{ route('roles.delete', $role->id) }}" method="POST" class="d-inline">
+                  <form action="{{ route('admin.roles.delete', $role->id) }}" method="POST" class="d-inline">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-outline-danger rounded-circle" data-bs-toggle="tooltip" data-bs-title="Delete" onclick="return confirm('Are you sure you want to delete this role?')">

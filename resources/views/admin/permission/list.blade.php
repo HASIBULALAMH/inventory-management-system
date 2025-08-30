@@ -41,7 +41,7 @@
     <div class="card-header d-flex flex-wrap align-items-center justify-content-between gap-2">
       <h5 class="mb-0"><i class="fa-solid fa-lock me-2"></i>Permission Management</h5>
       <!-- ✅ Only Create Permission button -->
-      <a href="{{route('permissions.create')}}" class="btn btn-light btn-sm">
+      <a href="{{route('admin.permissions.create')}}" class="btn btn-light btn-sm">
         <i class="fa-solid fa-plus me-1"></i>Create Permission
       </a>
     </div>

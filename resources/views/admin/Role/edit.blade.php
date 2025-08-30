@@ -35,13 +35,13 @@
   <div class="card role-card">
     <div class="card-header d-flex align-items-center justify-content-between">
       <h5 class="mb-0"><i class="fa-solid fa-user-shield me-2"></i>Create New Role</h5>
-      <a href="{{ route('roles.list') }}" class="btn btn-light btn-sm">
+      <a href="{{ route('admin.roles.list') }}" class="btn btn-light btn-sm">
         <i class="fa-solid fa-arrow-left me-1"></i>Back to Roles
       </a>
     </div>
 
     <div class="card-body">
-      <form action="{{ route('roles.update', $role->id) }}" method="POST" enctype="multipart/form-data">
+      <form action="{{ route('admin.roles.update', $role->id) }}" method="POST" enctype="multipart/form-data">
         @method('PUT')
         @csrf
 
