@@ -41,7 +41,7 @@
     </div>
 
     <div class="card-body">
-      <form action="#" method="POST">
+      <form action="{{ route('roles.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <div class="mb-3">
@@ -55,8 +55,8 @@
         <div class="mb-3">
           <label for="status" class="form-label">Status</label>
           <select class="form-select" id="status" name="status" required>
-            <option value="1" selected>Active</option>
-            <option value="0">Inactive</option>
+            <option value="active" selected>Active</option>
+            <option value="inactive">Inactive</option>
           </select>
         </div>
         <button type="submit" class="btn btn-submit">

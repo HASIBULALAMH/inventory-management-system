@@ -63,15 +63,23 @@
             </tr>
           </thead>
           <tbody>
+            @foreach ($roles as $role)
             <tr>
-              <td>#1</td>
-              <td>Super Admin</td>
+              <td>{{$role->id}}</td>
+              <td>{{$role->name}}</td>
               <td>
-                <i class="fa-solid fa-user-shield"></i>
+                @if($role->icon)
+                  <img src="{{ asset('/uploads/role/'.$role->icon) }}" width="50" height="50" class="img-fluid rounded" alt="{{ $role->name }}">
+                @endif
               </td>
-              <td>
+              <td> 
+                @if ($role->status == 'active')
                 <span class="status-dot dot-active"></span>
-                <span class="badge text-bg-success">Active</span>
+                <span class="badge bg-success">Active</span>
+                @elseif ($role->status == 'inactive')
+                <span class="status-dot dot-inactive"></span>
+                <span class="badge bg-danger">Inactive</span>
+                @endif
               </td>
               <td class="text-end action-btns">
                 <button class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-title="Edit">
@@ -82,14 +90,15 @@
                 </button>
               </td>
             </tr>
+            @endforeach
           </tbody>
         </table>
       </div>
 
       <!-- Footer -->
-      <div class="p-3 d-flex justify-content-between align-items-center">
+      <div class="p-3 d-flex justify-content-between align-items-center"> 
         <small class="text-muted">Showing <strong>2</strong> roles</small>
-        <nav>
+        <nav> {{ $roles->links() }}
           <ul class="pagination pagination-sm mb-0">
             <li class="page-item disabled"><span class="page-link">Prev</span></li>
             <li class="page-item active"><span class="page-link">1</span></li>
