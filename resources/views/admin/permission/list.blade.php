@@ -59,30 +59,19 @@
             </tr>
           </thead>
           <tbody>
+            @foreach ($permissions as $permission)
             <tr>
-              <td>#1</td>
-              <td>Manage Users</td>
-              <td>Web</td>
+              <td>{{$permission->id}}</td>
+              <td>{{$permission->name}}</td>
+              <td>{{$permission->guard_name}}</td>
               <td>
+                @if ($permission->status == 'active')
                 <span class="status-dot dot-active"></span>
                 <span class="badge text-bg-success">Active</span>
-              </td>
-              <td class="text-end action-btns">
-                <button class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-title="Edit">
-                  <i class="fa-regular fa-pen-to-square"></i>
-                </button>
-                <button class="btn btn-outline-danger btn-sm" data-bs-toggle="tooltip" data-bs-title="Delete">
-                  <i class="fa-regular fa-trash-can"></i>
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td>#2</td>
-              <td>Manage Roles</td>
-              <td>Web</td>
-              <td>
+                @elseif ($permission->status == 'inactive')
                 <span class="status-dot dot-inactive"></span>
-                <span class="badge text-bg-secondary">Inactive</span>
+                <span class="badge text-bg-danger">Inactive</span>
+                @endif
               </td>
               <td class="text-end action-btns">
                 <button class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-title="Edit">
@@ -93,20 +82,16 @@
                 </button>
               </td>
             </tr>
+            @endforeach
           </tbody>
         </table>
       </div>
 
       <!-- Footer -->
       <div class="p-3 d-flex justify-content-between align-items-center">
-        <small class="text-muted">Showing <strong>5</strong> permissions</small>
+        <small class="text-muted">Showing <strong>{{ $permissions->total() }}</strong> permissions</small>
         <nav>
-          <ul class="pagination pagination-sm mb-0">
-            <li class="page-item disabled"><span class="page-link">Prev</span></li>
-            <li class="page-item active"><span class="page-link">1</span></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-          </ul>
+          {{ $permissions->links() }}
         </nav>
       </div>
     </div>

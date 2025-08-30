@@ -11,7 +11,7 @@ class PermissionController extends Controller
 {
     //list
     public function list(){
-        $permissions = Permission::all();
+        $permissions = Permission::paginate(10); // Show 10 permissions per page
         return view('admin.permission.list', compact('permissions'));
     }
 
