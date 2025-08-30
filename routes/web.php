@@ -3,6 +3,7 @@
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\LoginController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\PermissionController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -32,6 +33,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 
         //permission 
+        Route::get('permissions', [PermissionController::class, 'list'])->name('permissions.list');
     });
 
 });
