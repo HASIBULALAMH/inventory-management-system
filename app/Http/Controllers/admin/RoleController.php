@@ -50,6 +50,18 @@ class RoleController extends Controller
         return redirect()->route('roles.list')->with('success', 'Role created successfully');
     }
     
+//edit
+public function edit($id)
+{
+    $role = Role::find($id);
+    return view('admin.role.edit', compact('role'));
+}
+
+
+
+
+
+
     //delete
     public function delete($id)
     {
