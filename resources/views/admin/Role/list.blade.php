@@ -81,13 +81,19 @@
                 <span class="badge bg-danger">Inactive</span>
                 @endif
               </td>
-              <td class="text-end action-btns">
-                <button class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-title="Edit">
-                  <i class="fa-regular fa-pen-to-square"></i>
-                </button>
-                <button class="btn btn-outline-danger btn-sm" data-bs-toggle="tooltip" data-bs-title="Delete">
-                  <i class="fa-regular fa-trash-can"></i>
-                </button>
+              <td class="text-end">
+                <div class="d-flex gap-2 justify-content-end">
+                  <a href="" class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-title="Edit">
+                    <i class="fa-regular fa-pen-to-square"></i>
+                  </a>
+                  <form action="{{ route('roles.delete', $role->id) }}" method="POST" class="d-inline">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-outline-danger btn-sm" data-bs-toggle="tooltip" data-bs-title="Delete" onclick="return confirm('Are you sure you want to delete this role?')">
+                      <i class="fa-regular fa-trash-can"></i>
+                    </button>
+                  </form>
+                </div>
               </td>
             </tr>
             @endforeach

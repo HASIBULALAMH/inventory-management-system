@@ -49,4 +49,14 @@ class RoleController extends Controller
         ]);
         return redirect()->route('roles.list')->with('success', 'Role created successfully');
     }
+    
+    //delete
+    public function delete($id)
+    {
+        $role = Role::find($id);
+        if ($role) {
+            $role->delete();
+         }
+         return redirect()->route('roles.list')->with('success', 'Role deleted successfully');
+    }
 }

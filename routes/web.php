@@ -26,6 +26,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('roles', [RoleController::class, 'list'])->name('roles.list');
         Route::get('roles/create', [RoleController::class, 'create'])->name('roles.create');
         Route::post('roles/store', [RoleController::class, 'store'])->name('roles.store'); 
+        Route::delete('roles/delete/{id}', [RoleController::class, 'delete'])->name('roles.delete');
     });
 
 });
