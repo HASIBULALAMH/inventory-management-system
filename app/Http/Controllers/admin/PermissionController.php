@@ -44,4 +44,10 @@ class PermissionController extends Controller
 
         return redirect()->route('admin.permissions.list')->with('success', 'Permission created successfully');
     }
+    
+    //edit
+    public function edit($id){
+        $permission = Permission::findOrFail($id);
+        return view('admin.permission.edit', compact('permission'));
+    }
 }

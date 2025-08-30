@@ -35,4 +35,5 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::get('permissions', [PermissionController::class, 'list'])->name('permissions.list');
     Route::get('permissions/create', [PermissionController::class, 'create'])->name('permissions.create');
     Route::post('permissions/store', [PermissionController::class, 'store'])->name('permissions.store');
+    Route::get('permissions/edit/{id}', [PermissionController::class, 'edit'])->name('permissions.edit');
 });
