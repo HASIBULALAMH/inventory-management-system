@@ -34,6 +34,7 @@ Route::group(['middleware' => ['auth']], function () {
 
         //permission 
         Route::get('permissions', [PermissionController::class, 'list'])->name('permissions.list');
+        Route::get('permissions/create', [PermissionController::class, 'create'])->name('permissions.create');
     });
 
 });
