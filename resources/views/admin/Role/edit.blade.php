@@ -41,20 +41,21 @@
     </div>
 
     <div class="card-body">
-      <form action="{{ route('roles.store') }}" method="POST" enctype="multipart/form-data">
+      <form action="{{ route('roles.update', $role->id) }}" method="POST" enctype="multipart/form-data">
+        @method('PUT')
         @csrf
 
         <div class="mb-3">
           <label for="name" class="form-label">Role Name</label>
-          <input type="text" class="form-control" id="name" name="name" value="{{ $role->name }}" placeholder="Enter role name" required>
+          <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $role->name) }}" required>
         </div>
        <div>
         <label for="icon" class="form-label">Role Icon</label>
-        <input type="file" class="form-control" id="icon" name="icon" value="{{ $role->icon }}" placeholder="" required>
+        <input type="file" class="form-control" id="icon" name="icon" value="{{ $role->icon, old('icon', $role->icon) }}" placeholder=" " required>
        </div>
         <div class="mb-3">
           <label for="status" class="form-label">Status</label>
-          <select class="form-select" id="status" name="status" value="{{ $role->status }}" required>
+          <select class="form-select" id="status" name="status" value="{{ old('status', $role->status) }}" required>
             <option value="active" selected>Active</option>
             <option value="inactive">Inactive</option>
           </select>
