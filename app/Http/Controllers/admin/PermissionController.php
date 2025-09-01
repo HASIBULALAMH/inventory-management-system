@@ -23,7 +23,7 @@ class PermissionController extends Controller
     //store
     public function store(Request $request){
         //dd($request->all());
-
+            
         //validate
         $validate = Validator::make($request->all(), [
             'name' => 'required|unique:permissions,name',
@@ -49,5 +49,30 @@ class PermissionController extends Controller
     public function edit($id){
         $permission = Permission::findOrFail($id);
         return view('admin.permission.edit', compact('permission'));
+    }
+
+
+    //update
+    public function update(Request $request, $id){
+
+
+        $validate = Validator::make($request->all(), [
+          'name' => 'required|unique:permissions,name,'.$id,
+           'guard_name' => 'required|in:web,api',
+           'status' => 'required|in:active,inactive',
+        ]);
+        if($validate->fails()){
+            return redirect()->back()->withErrors($validate)->withInput();
+        }
+
+        //query
+        $permission = Permission::findOrFail($id);
+        $permission->update([
+            'name' => $request->name,
+            'guard_name' => $request->guard_name,
+            'status' => $request->status,
+        ]);
+
+        return redirect()->route('admin.permissions.list')->with('success', 'Permission updated successfully');
     }
 }

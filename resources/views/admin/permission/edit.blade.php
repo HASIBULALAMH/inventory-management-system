@@ -41,8 +41,9 @@
     </div>
 
     <div class="card-body">
-      <form action="" method="POST">
+      <form action="{{ route('admin.permissions.update', $permission->id) }}" method="POST">
         @csrf
+        @method('PUT')
 
         <!-- Permission Name -->
         <div class="mb-3">
@@ -53,18 +54,18 @@
         <!-- Guard Name -->
         <div class="mb-3">
           <label for="guard_name" class="form-label">Guard Name</label>
-          <select class="form-select" id="guard_name" name="guard_name" value="{{ $permission->guard_name }}" required>
-            <option value="web" selected>Web</option>
-            <option value="api">API</option>
+          <select class="form-select" id="guard_name" name="guard_name" required>
+            <option value="web" {{ $permission->guard_name == 'web' ? 'selected' : '' }}>Web</option>
+            <option value="api" {{ $permission->guard_name == 'api' ? 'selected' : '' }}>API</option>
           </select>
         </div>
 
         <!-- Status -->
         <div class="mb-3">
           <label for="status" class="form-label">Status</label>
-          <select class="form-select" id="status" name="status" value="{{ $permission->status }}" required>
-            <option value="active" selected>Active</option>
-            <option value="inactive">Inactive</option>
+          <select class="form-select" id="status" name="status" required>
+            <option value="active" {{ $permission->status == 'active' ? 'selected' : '' }}>Active</option>
+            <option value="inactive" {{ $permission->status == 'inactive' ? 'selected' : '' }}>Inactive</option>
           </select>
         </div>
 
