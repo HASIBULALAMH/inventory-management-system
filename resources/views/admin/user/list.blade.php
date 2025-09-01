@@ -44,7 +44,7 @@
   <div class="card user-card">
     <div class="card-header d-flex flex-wrap align-items-center justify-content-between gap-2">
       <h5 class="mb-0"><i class="fa-solid fa-users me-2"></i>User Management</h5>
-      <a href="" class="btn btn-light btn-sm">
+      <a href="{{ route('admin.users.create') }}" class="btn btn-light btn-sm">
         <i class="fa-solid fa-user-plus me-1"></i>Create User
       </a>
     </div>

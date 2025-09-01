@@ -13,4 +13,10 @@ class UserController extends Controller
        
         return view('admin.user.list');
     }
+
+
+    //create
+    public function create(){
+        return view('admin.user.create');
+    }
 }   
