@@ -32,6 +32,22 @@
   .btn-gradient:hover {
     opacity: .9;
   }
+  .image-preview {
+    width: 120px;
+    height: 120px;
+    border: 2px dashed #ccc;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: #f8f9fa;
+  }
+  .image-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 </style>
 
 <div class="container my-4">
@@ -44,7 +60,7 @@
     </div>
 
     <div class="card-body">
-      <form action="" method="POST">
+      <form action="" method="POST" enctype="multipart/form-data">
         @csrf
 
         <!-- 🔹 Personal Info -->
@@ -67,6 +83,18 @@
               <label class="form-label">Confirm Password <span class="text-danger">*</span></label>
               <input type="password" name="password_confirmation" class="form-control" placeholder="Re-enter password" required>
             </div>
+            <div class="col-md-6">
+              <label class="form-label">Date of Birth</label>
+              <input type="date" name="dob" class="form-control">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Contact Number</label>
+              <input type="text" name="phone" class="form-control" placeholder="Enter phone number">
+            </div>
+            <div class="col-md-12">
+              <label class="form-label">Present Address</label>
+              <textarea name="present_address" class="form-control" rows="2" placeholder="Enter present address"></textarea>
+            </div>
           </div>
         </div>
 
@@ -86,9 +114,21 @@
               <label class="form-label">Years of Experience</label>
               <input type="number" name="experience" class="form-control" placeholder="e.g. 5">
             </div>
-            <div class="col-md-6">
-              <label class="form-label">Contact Number</label>
-              <input type="text" name="phone" class="form-control" placeholder="Enter phone number">
+          </div>
+        </div>
+
+        <!-- 🔹 Profile Image -->
+        <div class="mb-4">
+          <div class="form-section-title">Profile Picture</div>
+          <div class="row g-3 align-items-center">
+            <div class="col-md-3 text-center">
+              <div class="image-preview" id="imagePreview">
+                <span class="text-muted">No Image</span>
+              </div>
+            </div>
+            <div class="col-md-9">
+              <label class="form-label">Upload Profile Picture</label>
+              <input type="file" name="image" class="form-control" accept="image/*" onchange="previewImage(event)">
             </div>
           </div>
         </div>
@@ -100,10 +140,10 @@
             <div class="col-md-6">
               <label class="form-label">Assign Role <span class="text-danger">*</span></label>
               <select name="role" class="form-select" required>
-                <option value="">Select role</option>
-                <option value="admin">Admin</option>
-                <option value="manager">Manager</option>
-                <option value="staff">Staff</option>
+                <option value="">Select Role</option>
+                @foreach ($roles as $role)
+                    <option value="{{ $role->id }}">{{ $role->name }}</option>
+                @endforeach
               </select>
             </div>
             <div class="col-md-6">
@@ -128,4 +168,14 @@
     </div>
   </div>
 </div>
+
+<script>
+  function previewImage(event) {
+    const preview = document.getElementById('imagePreview');
+    preview.innerHTML = '';
+    const img = document.createElement('img');
+    img.src = URL.createObjectURL(event.target.files[0]);
+    preview.appendChild(img);
+  }
+</script>
 @endsection
