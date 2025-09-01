@@ -52,9 +52,9 @@
     <!-- 🔍 Search & Filter -->
     <div class="p-3 filter-box d-flex flex-wrap gap-2 align-items-center justify-content-between">
       <div class="d-flex gap-2">
-        <input type="text" id="searchInput" class="form-control form-control-sm" placeholder="Search by name or email">
-        <select id="statusFilter" class="form-select form-select-sm" style="width:150px;">
-          <option value="">All Status</option>
+        <input type="text" id="searchInput" class="form-control form-control-sm" placeholder="Search by name or email" value="{{ request('search') }}">
+        <select id="statusFilter" class="form-select form-select-sm" style="width:150px;" value="{{ request('filter') }}">
+          <option value=" ">All Status</option>
           <option value="active">Active</option>
           <option value="inactive">Inactive</option>
         </select>
@@ -75,14 +75,20 @@
             </tr>
           </thead>
           <tbody>
+            @foreach ($users as $user)
             <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td>
+              <td>{{ $user->id }}</td>
+              <td>{{ $user->name }}</td>
+              <td>{{ $user->email }}</td>
+              <td>{{ $user->roles->first() ? $user->roles->first()->name : 'N/A' }}</td>
+              <td> 
+                @if ($user->status == 'active')
                 <span class="status-dot dot-active"></span>
                 <span class="badge text-bg-success">Active</span>
+                @elseif ($user->status == 'inactive')
+                <span class="status-dot dot-inactive"></span>
+                <span class="badge text-bg-danger">Inactive</span>
+                @endif
               </td>
               <td class="text-end">
                <div class="d-flex gap-2 justify-content-end">
@@ -102,19 +108,17 @@
                </div>
              </td>
             </tr>
+            @endforeach
           </tbody>
         </table>
       </div>
 
       <!-- Footer -->
       <div class="p-3 d-flex justify-content-between align-items-center">
-        <small class="text-muted">Showing <strong>2</strong> users</small>
+        <small class="text-muted">Showing <strong>{{ $users->total() }}</strong> users</small>
         <nav>
           <ul class="pagination pagination-sm mb-0">
-            <li class="page-item disabled"><span class="page-link">Prev</span></li>
-            <li class="page-item active"><span class="page-link">1</span></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            {{ $users->links() }}
           </ul>
         </nav>
       </div>

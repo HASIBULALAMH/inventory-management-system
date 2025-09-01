@@ -60,7 +60,7 @@
     </div>
 
     <div class="card-body">
-      <form action="" method="POST" enctype="multipart/form-data">
+      <form action="{{ route('admin.users.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <!-- 🔹 Personal Info -->

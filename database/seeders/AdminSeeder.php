@@ -24,8 +24,18 @@ class AdminSeeder extends Seeder
         $superadmin = User::firstOrCreate(
             ['email' => 'superadmin@gmail.com'],
             [
-                'name' => 'superadmin',
-                'password' => bcrypt('12345678')
+                'name' => 'Super Admin',
+                'password' => bcrypt('12345678'),
+                'dob' => '2002-11-05',
+                'phone' => '01234567890',
+                'present_address' => 'Office Address',
+                'job_title' => 'System Administrator',
+                'department' => 'IT',
+                'experience' => '5',
+                'image' => 'public/user/admin.jpg',
+                'role' => 'superadmin',
+                'status' => 'active',
+                'email_verified_at' => now(),
             ]
         );
 
