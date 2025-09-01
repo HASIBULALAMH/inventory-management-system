@@ -142,4 +142,17 @@ class RoleController extends Controller
          }
          return redirect()->route('roles.list')->with('success', 'Role deleted successfully');
     }
+
+
+
+
+
+
+
+
+    //permission assign
+    public function permissionAssign($id){
+        $role = Role::find($id);
+        return view('admin.role.permission-assign', compact('role'));
+    }
 }
