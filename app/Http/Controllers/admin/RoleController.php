@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Spatie\Permission\Models\Role; // Make sure this is imported
+use Spatie\Permission\Models\Role; 
+use Spatie\Permission\Models\Permission; // Make sure this is imported
 
 class RoleController extends Controller
 {
@@ -153,6 +154,24 @@ class RoleController extends Controller
     //permission assign
     public function permissionAssign($id){
         $role = Role::find($id);
-        return view('admin.role.permission-assign', compact('role'));
+        $permissions = Permission::all();
+        return view('admin.role.permission-assign', compact('role', 'permissions'));
     }
+
+
+    //permission assign store
+    public function permissionAssignStore(Request $request, $id){
+        $role = Role::findOrFail($id);
+        
+        // Get the permission models from the submitted IDs
+        $permissions = Permission::whereIn('id', $request->permissions ?? [])->pluck('name');
+        
+        // Sync all selected permissions by their names
+        $role->syncPermissions($permissions);
+        
+        return redirect()->route('admin.roles.list')
+            ->with('success', 'Permissions updated successfully');
+    }
+
+    
 }

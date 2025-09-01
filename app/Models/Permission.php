@@ -11,4 +11,10 @@ class Permission extends SpatiePermission
         'guard_name',
         'status',
     ];
+
+    //many to many
+    public function role()
+    {
+        return $this->belongsToMany(Role::class);
+    }
 }

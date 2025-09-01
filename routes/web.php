@@ -41,4 +41,5 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
 
     //permission assign
     Route::get('roles/permissions/assign/{id}', [RoleController::class, 'permissionAssign'])->name('roles.permissions.assign');
+    Route::post('roles/permissions/assign/{id}', [RoleController::class, 'permissionAssignStore'])->name('roles.permissions.assign.store');
 });

@@ -58,12 +58,13 @@
     </div>
 
     <div class="card-body">
-      <form action="" method="POST">
+      <form action="{{ route('admin.roles.permissions.assign.store', $role->id) }}" method="POST">
         @csrf
 
         <!-- Role Info -->
         <div class="mb-3">
           <label class="form-label">Role Name</label>
+          
           <input type="text" class="form-control" value="{{ $role->name }}" disabled>
         </div>
 
@@ -71,40 +72,15 @@
         <div class="mb-3">
           <label class="form-label">Select Permissions</label>
           <div class="permission-list">
-            
-            <!-- Example grouped permissions -->
-            <div class="permission-group">
-              <h6>User Management</h6>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="permissions[]" value="manage_users" id="perm1">
-                <label class="form-check-label" for="perm1">Manage Users</label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="permissions[]" value="view_users" id="perm2">
-                <label class="form-check-label" for="perm2">View Users</label>
-              </div>
+            @foreach($permissions as $permission)
+            <div class="form-check mb-2">
+              <input class="form-check-input" type="checkbox" name="permissions[]" value="{{ $permission->id }}" 
+                     id="permission_{{ $permission->id }}" {{ $role->hasPermissionTo($permission->name) ? 'checked' : '' }}>
+              <label class="form-check-label" for="permission_{{ $permission->id }}">
+                {{ $permission->name }}
+              </label>
             </div>
-
-            <div class="permission-group">
-              <h6>Role Management</h6>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="permissions[]" value="manage_roles" id="perm3">
-                <label class="form-check-label" for="perm3">Manage Roles</label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="permissions[]" value="view_roles" id="perm4">
-                <label class="form-check-label" for="perm4">View Roles</label>
-              </div>
-            </div>
-
-            <div class="permission-group">
-              <h6>Reports</h6>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="permissions[]" value="view_reports" id="perm5">
-                <label class="form-check-label" for="perm5">View Reports</label>
-              </div>
-            </div>
-
+            @endforeach
           </div>
         </div>
 

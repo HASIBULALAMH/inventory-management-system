@@ -12,4 +12,10 @@ class Role extends Model
         'icon',
         'status',
     ];
+
+    //one to many
+    public function permission()
+    {
+        return $this->hasMany(Permission::class);
+    }
 }
