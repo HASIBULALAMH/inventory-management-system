@@ -75,4 +75,13 @@ class PermissionController extends Controller
 
         return redirect()->route('admin.permissions.list')->with('success', 'Permission updated successfully');
     }
+
+        //delete
+            public function delete($id){
+                $permission = Permission::findOrFail($id);
+                $permission->delete();
+                return redirect()->route('admin.permissions.list')->with('success', 'Permission deleted successfully');
+            }
+
+
 }

@@ -37,4 +37,5 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::post('permissions/store', [PermissionController::class, 'store'])->name('permissions.store');
     Route::get('permissions/edit/{id}', [PermissionController::class, 'edit'])->name('permissions.edit');
     Route::put('permissions/update/{id}', [PermissionController::class, 'update'])->name('permissions.update');
+    Route::delete('permissions/delete/{id}', [PermissionController::class, 'delete'])->name('permissions.delete');
 });
