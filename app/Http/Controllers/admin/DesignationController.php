@@ -51,4 +51,28 @@ class DesignationController extends Controller
         $departments = Department::all();
         return view('admin.designation.edit', compact('designation', 'departments'));
     }
+
+
+    //update
+    public function update(Request $request, $id){
+        $validate = Validator::make($request->all(), [
+            'name' => 'required|max:255|unique:designations,name',
+            'code' => 'required|max:255|unique:designations,code',
+            'department_id' => 'required',
+            'status' => 'required|in:active,inactive',
+        ]);
+
+        if ($validate->fails()) {
+            return redirect()->back()->withErrors($validate)->withInput();
+        }
+
+        $designation = Designation::findOrFail($id);
+        $designation->update([
+            'name' => $request->name,
+            'code' => $request->code,
+            'department_id' => $request->department_id,
+            'status' => $request->status,
+        ]);
+        return redirect()->route('admin.designations.list')->with('success', 'Designation updated successfully');
+    }
 }

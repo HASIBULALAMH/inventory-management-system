@@ -50,8 +50,9 @@
     </div>
 
     <div class="card-body">
-      <form action="" method="POST">
+      <form action="{{ route('admin.designations.update', $designation->id) }}" method="POST">
         @csrf
+        @method('PUT')
         <div class="row g-3">
           <!-- Designation Name -->
           <div class="col-md-6">
