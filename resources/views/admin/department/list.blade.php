@@ -40,7 +40,7 @@
   <div class="card dept-card">
     <div class="card-header d-flex flex-wrap align-items-center justify-content-between gap-2">
       <h5 class="mb-0"><i class="fa-solid fa-building me-2"></i>Department Management</h5>
-      <a href="#" class="btn btn-light btn-sm">
+      <a href="{{ route('admin.departments.create') }}" class="btn btn-light btn-sm">
         <i class="fa-solid fa-plus me-1"></i>Create Department
       </a>
     </div>
@@ -52,30 +52,17 @@
             <tr>
               <th style="width: 80px;">ID</th>
               <th>Department Name</th>
+              <th>Department Code</th>
               <th style="width: 160px;">Status</th>
               <th style="width: 160px;" class="text-end">Actions</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>#1</td>
-              <td>Human Resources</td>
-              <td>
-                <span class="status-dot dot-active"></span>
-                <span class="badge text-bg-success">Active</span>
-              </td>
-              <td class="text-end action-btns">
-                <button class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-title="Edit">
-                  <i class="fa-regular fa-pen-to-square"></i>
-                </button>
-                <button class="btn btn-outline-danger btn-sm" data-bs-toggle="tooltip" data-bs-title="Delete">
-                  <i class="fa-regular fa-trash-can"></i>
-                </button>
-              </td>
-            </tr>
+           
             <tr>
               <td>#2</td>
               <td>Finance</td>
+              <td>FIN001</td>
               <td>
                 <span class="status-dot dot-inactive"></span>
                 <span class="badge text-bg-secondary">Inactive</span>

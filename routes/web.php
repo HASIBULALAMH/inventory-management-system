@@ -59,5 +59,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
 
     //department
     Route::get('departments', [DepartmentController::class, 'list'])->name('departments.list');
+    Route::get('departments/create', [DepartmentController::class, 'create'])->name('departments.create');
+    
 
 });

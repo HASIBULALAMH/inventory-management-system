@@ -11,4 +11,10 @@ class DepartmentController extends Controller
     public function list(){
         return view('admin.department.list');
     }
+
+
+    //create
+    public function create(){
+        return view('admin.department.create');
+    }
 }
