@@ -43,8 +43,9 @@
     </div>
 
     <div class="card-body">
-      <form action="" method="POST">
+      <form action="{{ route('admin.departments.update', $department->id) }}" method="POST">
         @csrf
+        @method('PUT')
         <div class="row g-3">
 
           <!-- Department Name -->

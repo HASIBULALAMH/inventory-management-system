@@ -48,4 +48,26 @@ class DepartmentController extends Controller
         $department = Department::findOrFail($id);
         return view('admin.department.edit', compact('department'));
     }
+
+    //update
+    public function update(Request $request, $id){
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'code' => 'required',
+            'status' => 'required|in:active,inactive',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+    //update query
+        $department = Department::findOrFail($id);
+        $department->update([
+            'name' => $request->name,
+            'code' => $request->code,
+            'status' => $request->status,
+        ]);
+
+        return redirect()->route('admin.departments.list')->with('success', 'Department updated successfully');
+    }
 }
