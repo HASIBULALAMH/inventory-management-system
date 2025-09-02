@@ -5,6 +5,7 @@ use App\Http\Controllers\admin\LoginController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\DepartmentController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -48,5 +49,15 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     //user
     Route::get('users', [UserController::class, 'list'])->name('users.list');
     Route::get('users/create', [UserController::class, 'create'])->name('users.create');
-    Route::post('users', [UserController::class, 'store'])->name('users.store');
+    Route::post('users/store', [UserController::class, 'store'])->name('users.store');
+
+
+
+
+
+
+
+    //department
+    Route::get('departments', [DepartmentController::class, 'list'])->name('departments.list');
+
 });
