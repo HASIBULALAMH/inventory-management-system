@@ -75,4 +75,11 @@ class DesignationController extends Controller
         ]);
         return redirect()->route('admin.designations.list')->with('success', 'Designation updated successfully');
     }
+
+    //delete
+    public function delete($id){
+        $designation = Designation::findOrFail($id);
+        $designation->delete();
+        return redirect()->route('admin.designations.list')->with('success', 'Designation deleted successfully');
+    }
 }

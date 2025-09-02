@@ -79,7 +79,7 @@
                   <a href="{{ route('admin.designations.edit', $designation->id) }}" class="btn btn-outline-primary btn-sm rounded-circle" data-bs-toggle="tooltip" data-bs-title="Edit" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;">
                     <i class="fa-regular fa-pen-to-square"></i>
                   </a>
-                  <form action="" method="POST" class="d-inline">
+                  <form action="{{ route('admin.designations.delete', $designation->id) }}" method="POST" class="d-inline">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-outline-danger rounded-circle" data-bs-toggle="tooltip" data-bs-title="Delete" onclick="return confirm('Are you sure you want to delete this role?')">

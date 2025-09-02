@@ -75,5 +75,5 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::post('designations/store', [DesignationController::class, 'store'])->name('designations.store');
     Route::get('designations/edit/{id}', [DesignationController::class, 'edit'])->name('designations.edit');
     Route::put('designations/update/{id}', [DesignationController::class, 'update'])->name('designations.update');
-  
+    Route::delete('designations/delete/{id}', [DesignationController::class, 'delete'])->name('designations.delete');
 });
