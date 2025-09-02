@@ -55,4 +55,23 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    //one to many
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    //many to many
+   public function designation()
+   {
+       return $this->belongsTo(Designation::class);
+   }
+
+   //many to many
+   public function department()
+   {
+       return $this->belongsTo(Department::class);
+   }
+
 }

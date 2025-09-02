@@ -17,4 +17,9 @@ class Department extends Model
     {
         return $this->hasMany(Designation::class);
     }
+    //one to many
+    public function user()
+    {
+        return $this->hasMany(User::class);
+    }
 }
