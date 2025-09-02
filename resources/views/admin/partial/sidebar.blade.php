@@ -38,6 +38,11 @@
                     <i class="align-middle" data-feather="book"></i> <span class="align-middle">Departments</span>
                 </a>
             </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{{route('admin.designations.list')}}">
+                    <i class="align-middle" data-feather="book"></i> <span class="align-middle">Designations</span>
+                </a>
+            </li>
 
             <li class="sidebar-header">
                 Tools & Components

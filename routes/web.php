@@ -6,7 +6,9 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\DepartmentController;
+use App\Http\Controllers\Admin\DesignationController;
 use Illuminate\Support\Facades\Route;
+
 
 
 Route::get('/', function () {
@@ -64,4 +66,10 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::get('departments/edit/{id}', [DepartmentController::class, 'edit'])->name('departments.edit');
     Route::put('departments/update/{id}', [DepartmentController::class, 'update'])->name('departments.update');
     Route::delete('departments/delete/{id}', [DepartmentController::class, 'delete'])->name('departments.delete');
+
+
+
+    //designation
+    Route::get('designations', [DesignationController::class, 'list'])->name('designations.list');
+
 });
