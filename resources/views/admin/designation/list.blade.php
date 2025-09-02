@@ -59,39 +59,46 @@
             </tr>
           </thead>
           <tbody>
+            @foreach ($designations as $designation)
             <tr>
-              <td>#1</td>
-              <td>Software Engineer</td>
-              <td>DE-001</td>
-              <td>IT</td>
+              <td>{{ $designation->id }}</td>
+              <td>{{ $designation->name }}</td>
+              <td>{{ $designation->code }}</td>
+              <td>{{ $designation->department->name }}</td>
               <td>
+                @if ($designation->status == 'active')
                 <span class="status-dot dot-active"></span>
-                <span class="badge text-bg-success">Active</span>
+                <span class="badge text-bg-success">{{ $designation->status }}</span>
+                @elseif ($designation->status == 'inactive')
+                <span class="status-dot dot-inactive"></span>
+                <span class="badge text-bg-danger">{{ $designation->status }}</span>
+                @endif
               </td>
               <td class="text-end action-btns">
-                <button class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-title="Edit">
-                  <i class="fa-regular fa-pen-to-square"></i>
-                </button>
-                <button class="btn btn-outline-danger btn-sm" data-bs-toggle="tooltip" data-bs-title="Delete">
-                  <i class="fa-regular fa-trash-can"></i>
-                </button>
+              <div class="d-flex gap-2 justify-content-end">
+                  <a href="{{ route('admin.designations.edit', $designation->id) }}" class="btn btn-outline-primary btn-sm rounded-circle" data-bs-toggle="tooltip" data-bs-title="Edit" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;">
+                    <i class="fa-regular fa-pen-to-square"></i>
+                  </a>
+                  <form action="" method="POST" class="d-inline">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-outline-danger rounded-circle" data-bs-toggle="tooltip" data-bs-title="Delete" onclick="return confirm('Are you sure you want to delete this role?')">
+                      <i class="fa-regular fa-trash-can"></i>
+                    </button>
+                  </form>
+                </div>
               </td>
             </tr>
-           
+            @endforeach           
           </tbody>
         </table>
       </div>
 
       <!-- Footer -->
       <div class="p-3 d-flex justify-content-between align-items-center">
-        <small class="text-muted">Showing <strong></strong> designations</small>
+        <small class="text-muted">Showing <strong> {{ $designations->total() }}</strong> designations</small>
         <nav>
-          <ul class="pagination pagination-sm mb-0">
-            <li class="page-item disabled"><span class="page-link">Prev</span></li>
-            <li class="page-item active"><span class="page-link">1</span></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-          </ul>
+          {{ $designations->links() }}
         </nav>
       </div>
     </div>

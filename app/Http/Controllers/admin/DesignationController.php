@@ -12,7 +12,8 @@ class DesignationController extends Controller
 {
     //list
     public function list(){
-        return view('admin.designation.list');
+        $designations = Designation::paginate(10);
+        return view('admin.designation.list', compact('designations'));
     }
 
     //create
@@ -41,5 +42,13 @@ class DesignationController extends Controller
             'status' => $request->status,
         ]);
         return redirect()->route('admin.designations.list')->with('success', 'Designation created successfully');
+    }
+
+
+    //edit
+    public function edit($id){
+        $designation = Designation::findOrFail($id);
+        $departments = Department::all();
+        return view('admin.designation.edit', compact('designation', 'departments'));
     }
 }
