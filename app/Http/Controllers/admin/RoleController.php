@@ -21,7 +21,7 @@ class RoleController extends Controller
         return view('admin.role.create');
     }
 
-    //store method - START OF CHANGES
+    //store method
     public function store(Request $request)
     {
         // Line 25: Add 'unique:roles,name' validation rule
@@ -32,7 +32,7 @@ class RoleController extends Controller
         ]);
 
         if ($validate->fails()) {
-            return redirect()->back()->withErrors($validate)->withInput();
+            return redirect()->route('admin.roles.create')->withErrors($validate)->withInput();
         }
 
         // --- Optional explicit check (the unique rule above is usually enough) ---
@@ -63,7 +63,7 @@ class RoleController extends Controller
             'status' => $request->status,
             'guard_name' => 'web', // Explicitly set the guard name
         ]);
-        return redirect()->route('roles.list')->with('success', 'Role created successfully');
+        return redirect()->route('admin.roles.list')->with('success', 'Role created successfully');
     }
     //store method - END OF CHANGES
 
@@ -107,7 +107,7 @@ class RoleController extends Controller
                 'guard_name' => 'web', // Explicitly set the guard name
             ]);
 
-            return redirect()->route('roles.list')
+            return redirect()->route('admin.roles.list')
                            ->with('success', 'Role updated successfully');
 
         } catch (\Exception $e) {
@@ -141,7 +141,7 @@ class RoleController extends Controller
             }
             $role->delete();
          }
-         return redirect()->route('roles.list')->with('success', 'Role deleted successfully');
+         return redirect()->route('admin.roles.list')->with('success', 'Role deleted successfully');
     }
 
 

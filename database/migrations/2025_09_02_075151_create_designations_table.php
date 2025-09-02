@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('designations', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('code');
+            $table->unsignedBigInteger('department_id');
+            $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
         });
     }

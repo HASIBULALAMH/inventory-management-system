@@ -72,5 +72,6 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     //designation
     Route::get('designations', [DesignationController::class, 'list'])->name('designations.list');
     Route::get('designations/create', [DesignationController::class, 'create'])->name('designations.create');
+    Route::post('designations/store', [DesignationController::class, 'store'])->name('designations.store');
 
 });

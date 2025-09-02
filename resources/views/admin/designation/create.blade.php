@@ -50,7 +50,7 @@
     </div>
 
     <div class="card-body">
-      <form action="#" method="POST">
+      <form action="{{ route('admin.designations.store') }}" method="POST">
         @csrf
         <div class="row g-3">
           <!-- Designation Name -->
