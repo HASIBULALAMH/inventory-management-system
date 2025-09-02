@@ -40,7 +40,7 @@
   <div class="card desig-card">
     <div class="card-header d-flex flex-wrap align-items-center justify-content-between gap-2">
       <h5 class="mb-0"><i class="fa-solid fa-briefcase me-2"></i>Designation Management</h5>
-      <a href="#" class="btn btn-light btn-sm">
+      <a href="{{ route('admin.designations.create') }}" class="btn btn-light btn-sm">
         <i class="fa-solid fa-plus me-1"></i>Create Designation
       </a>
     </div>
@@ -52,6 +52,8 @@
             <tr>
               <th style="width: 80px;">ID</th>
               <th>Designation Name</th>
+              <th>Designation code</th>  
+              <th>Department</th>
               <th style="width: 160px;">Status</th>
               <th style="width: 160px;" class="text-end">Actions</th>
             </tr>
@@ -60,6 +62,8 @@
             <tr>
               <td>#1</td>
               <td>Software Engineer</td>
+              <td>DE-001</td>
+              <td>IT</td>
               <td>
                 <span class="status-dot dot-active"></span>
                 <span class="badge text-bg-success">Active</span>
@@ -73,29 +77,14 @@
                 </button>
               </td>
             </tr>
-            <tr>
-              <td>#2</td>
-              <td>HR Manager</td>
-              <td>
-                <span class="status-dot dot-inactive"></span>
-                <span class="badge text-bg-secondary">Inactive</span>
-              </td>
-              <td class="text-end action-btns">
-                <button class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-title="Edit">
-                  <i class="fa-regular fa-pen-to-square"></i>
-                </button>
-                <button class="btn btn-outline-danger btn-sm" data-bs-toggle="tooltip" data-bs-title="Delete">
-                  <i class="fa-regular fa-trash-can"></i>
-                </button>
-              </td>
-            </tr>
+           
           </tbody>
         </table>
       </div>
 
       <!-- Footer -->
       <div class="p-3 d-flex justify-content-between align-items-center">
-        <small class="text-muted">Showing <strong>2</strong> designations</small>
+        <small class="text-muted">Showing <strong></strong> designations</small>
         <nav>
           <ul class="pagination pagination-sm mb-0">
             <li class="page-item disabled"><span class="page-link">Prev</span></li>
