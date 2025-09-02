@@ -61,5 +61,5 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::get('departments', [DepartmentController::class, 'list'])->name('departments.list');
     Route::get('departments/create', [DepartmentController::class, 'create'])->name('departments.create');
     Route::post('departments/store', [DepartmentController::class, 'store'])->name('departments.store');
-
+    Route::get('departments/edit/{id}', [DepartmentController::class, 'edit'])->name('departments.edit');
 });
