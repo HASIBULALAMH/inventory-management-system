@@ -58,37 +58,46 @@
             </tr>
           </thead>
           <tbody>
-           
+           @foreach ($departments as $department)
             <tr>
-              <td>#2</td>
-              <td>Finance</td>
-              <td>FIN001</td>
+              <td>{{ $department->id }}</td>
+              <td>{{ $department->name }}</td>
+              <td>{{ $department->code }}</td>
               <td>
+                @if ($department->status == 'active')
+                <span class="status-dot dot-active"></span>
+                <span class="badge text-bg-success">Active</span>
+                @elseif ($department->status == 'inactive')
                 <span class="status-dot dot-inactive"></span>
-                <span class="badge text-bg-secondary">Inactive</span>
+                <span class="badge text-bg-danger">Inactive</span>
+                @endif
               </td>
-              <td class="text-end action-btns">
-                <button class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-title="Edit">
-                  <i class="fa-regular fa-pen-to-square"></i>
-                </button>
-                <button class="btn btn-outline-danger btn-sm" data-bs-toggle="tooltip" data-bs-title="Delete">
-                  <i class="fa-regular fa-trash-can"></i>
-                </button>
+              <td class="text-end">
+                <div class="d-flex gap-2 justify-content-end">
+                  <a href="" class="btn btn-outline-primary btn-sm rounded-circle" data-bs-toggle="tooltip" data-bs-title="Edit" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;">
+                    <i class="fa-regular fa-pen-to-square"></i>
+                  </a>
+                  <form action="" method="POST" class="d-inline">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-outline-danger rounded-circle" data-bs-toggle="tooltip" data-bs-title="Delete" onclick="return confirm('Are you sure you want to delete this role?')">
+                      <i class="fa-regular fa-trash-can"></i>
+                    </button>
+                  </form>
+                </div>
               </td>
             </tr>
+          @endforeach
           </tbody>
         </table>
       </div>
 
       <!-- Footer -->
       <div class="p-3 d-flex justify-content-between align-items-center">
-        <small class="text-muted">Showing <strong>2</strong> departments</small>
+        <small class="text-muted">Showing <strong> {{ $departments->total() }}</strong> departments</small>
         <nav>
           <ul class="pagination pagination-sm mb-0">
-            <li class="page-item disabled"><span class="page-link">Prev</span></li>
-            <li class="page-item active"><span class="page-link">1</span></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            {{ $departments->links() }}
           </ul>
         </nav>
       </div>

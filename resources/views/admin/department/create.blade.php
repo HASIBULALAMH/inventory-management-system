@@ -39,11 +39,11 @@
   <div class="card dept-form-card">
     <div class="card-header d-flex align-items-center justify-content-between">
       <h5 class="mb-0"><i class="fa-solid fa-plus-circle me-2"></i>Create Department</h5>
-      <a href="#" class="btn btn-light btn-sm"><i class="fa-solid fa-list me-1"></i>Department List</a>
+      <a href="{{ route('admin.departments.list') }}" class="btn btn-light btn-sm"><i class="fa-solid fa-list me-1"></i>Department List</a>
     </div>
 
     <div class="card-body">
-      <form action="#" method="POST">
+      <form action="{{ route('admin.departments.store') }}" method="POST">
         @csrf
         <div class="row g-3">
 
@@ -63,8 +63,8 @@
           <div class="col-md-6">
             <label class="form-label">Status <span class="text-danger">*</span></label>
             <select class="form-select" name="status" required>
-              <option value="1">Active</option>
-              <option value="0">Inactive</option>
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
             </select>
           </div>
 
