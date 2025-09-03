@@ -36,7 +36,7 @@
   <div class="card user-card">
     <div class="card-header d-flex align-items-center justify-content-between">
       <h5 class="mb-0"><i class="fa-solid fa-users me-2"></i>User List</h5>
-      <a href="{{ route('admin.users.create') }}" class="btn btn-light btn-sm"><i class="fa-solid fa-plus me-1"></i>Create User</a>
+      <a href=" {{ route('admin.users.create') }}" class="btn btn-light btn-sm"><i class="fa-solid fa-plus me-1"></i>Create User</a>
     </div>
 
     <div class="card-body">

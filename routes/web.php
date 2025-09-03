@@ -48,14 +48,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::post('roles/permissions/assign/{id}', [RoleController::class, 'permissionAssignStore'])->name('roles.permissions.assign.store');
 
 
-    //user
-    Route::get('users', [UserController::class, 'list'])->name('users.list');
-    Route::get('users/create', [UserController::class, 'create'])->name('users.create');
    
-
-
-
-
 
     //department
     Route::get('departments', [DepartmentController::class, 'list'])->name('departments.list');
@@ -74,4 +67,12 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::get('designations/edit/{id}', [DesignationController::class, 'edit'])->name('designations.edit');
     Route::put('designations/update/{id}', [DesignationController::class, 'update'])->name('designations.update');
     Route::delete('designations/delete/{id}', [DesignationController::class, 'delete'])->name('designations.delete');
-});
+
+
+
+
+    //user
+    Route::get('users', [UserController::class, 'list'])->name('users.list');
+    Route::get('users/create', [UserController::class, 'create'])->name('users.create');
+    Route::post('users/store', [UserController::class, 'store'])->name('users.store');
+   });

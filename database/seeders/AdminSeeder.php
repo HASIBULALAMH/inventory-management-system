@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\Department;
+use App\Models\Designation;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
@@ -20,20 +22,42 @@ class AdminSeeder extends Seeder
             'guard_name' => 'web'
         ]);
 
+        // Create a department if not exists
+        $department = Department::firstOrCreate(
+            ['name' => 'IT'],
+            [
+                'code' => 'IT',
+                'status' => 'active'
+            ]
+        );
+
+        // Create a designation if not exists
+        $designation = Designation::firstOrCreate(
+            ['name' => 'System Administrator'],
+            [
+                'code' => 'SYSADM',
+                'department_id' => $department->id,
+                'status' => 'active'
+            ]
+        );
+
         // Create or get the superadmin user
         $superadmin = User::firstOrCreate(
             ['email' => 'superadmin@gmail.com'],
             [
                 'name' => 'Super Admin',
                 'password' => bcrypt('12345678'),
-                'dob' => '2002-11-05',
                 'phone' => '01234567890',
+                'gender' => 'male',
+                'dob' => '2002-11-05',
                 'present_address' => 'Office Address',
-                'job_title' => 'System Administrator',
-                'department' => 'IT',
-                'experience' => '5',
-                'image' => 'public/user/admin.jpg',
+                'permanent_address' => 'Office Address',
+                'employee_id' => 'SYS-ADM-001',
+                'department_id' => $department->id,
+                'designation_id' => $designation->id,
                 'role' => 'superadmin',
+                'join_date' => now(),
+                'profile_photo' => 'admin.jpg',
                 'status' => 'active',
                 'email_verified_at' => now(),
             ]
