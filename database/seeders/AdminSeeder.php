@@ -55,7 +55,6 @@ class AdminSeeder extends Seeder
                 'employee_id' => 'SYS-ADM-001',
                 'department_id' => $department->id,
                 'designation_id' => $designation->id,
-                'role' => 'superadmin',
                 'join_date' => now(),
                 'profile_photo' => 'admin.jpg',
                 'status' => 'active',
@@ -64,8 +63,8 @@ class AdminSeeder extends Seeder
         );
 
         // Assign role to user
-        if (!$superadmin->hasRole($role)) {
-            $superadmin->assignRole($role);
+        if (!$superadmin->hasRole($role->name)) {
+            $superadmin->assignRole($role->name);
         }
     }
 }

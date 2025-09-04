@@ -13,13 +13,14 @@ class Designation extends Model
         'status',
     ];
 
-    //many to many
+    // A designation belongs to one department
     public function department()
     {
         return $this->belongsTo(Department::class);
     }
-    //one to many
-    public function user()
+
+    // A designation can have many users
+    public function users()
     {
         return $this->hasMany(User::class);
     }

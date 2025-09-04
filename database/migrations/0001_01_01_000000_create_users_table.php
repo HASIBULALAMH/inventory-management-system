@@ -25,7 +25,6 @@ return new class extends Migration
             $table->string('employee_id');
             $table->unsignedBigInteger('department_id');
             $table->unsignedBigInteger('designation_id');
-            $table->string('role');
             $table->date('join_date');
             $table->string('profile_photo');
             $table->enum('status', ['active', 'inactive'])->default('active');

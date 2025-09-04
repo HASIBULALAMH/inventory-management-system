@@ -12,13 +12,14 @@ class Department extends Model
         'status',
     ];
 
-    //many to many
-    public function designation()
+    // A department can have many designations
+    public function designations()
     {
         return $this->hasMany(Designation::class);
     }
-    //one to many
-    public function user()
+
+    // A department can have many users
+    public function users()
     {
         return $this->hasMany(User::class);
     }
