@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::table('roles', function (Blueprint $table) {
             $table->string('icon')->nullable();
+            $table->string('dashboard_route');
             $table->enum('status', ['active', 'inactive'])->default('active');
         });
     }

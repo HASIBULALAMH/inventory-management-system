@@ -11,6 +11,7 @@ class Role extends SpatieRole
         'guard_name',
         'icon',
         'status',
+        'dashboard_route',
     ];
 
     // User relation (many-to-many)

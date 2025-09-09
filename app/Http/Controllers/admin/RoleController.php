@@ -35,19 +35,7 @@ class RoleController extends Controller
             return redirect()->route('admin.roles.create')->withErrors($validate)->withInput();
         }
 
-        // --- Optional explicit check (the unique rule above is usually enough) ---
-        // If you want a specific custom message for this, you can keep this check.
-        // Otherwise, the validator will handle the 'unique' error message.
-        /*
-        if (Role::where('name', $request->name)->where('guard_name', 'web')->exists()) {
-            return redirect()->back()
-                             ->withInput()
-                             ->with('error', 'A role with this name already exists for the web guard.');
-        }
-        */
-        // --- End of Optional explicit check ---
-
-
+  
         //icon upload
         $fileName = null;
         if ($request->hasFile('icon')) {
@@ -56,12 +44,18 @@ class RoleController extends Controller
             $file->move(public_path('uploads/role'), $fileName);
         }
             
-        // Line 51: role store - Add 'guard_name' explicitly
+        //auto genarate dashboard_route
+        $dashboardRoute = strtolower($request->name) . '.dashboard';    
+
+
+
+        // quarry
         Role::create([
             'name' => $request->name,
             'icon' => $fileName,
             'status' => $request->status,
-            'guard_name' => 'web', // Explicitly set the guard name
+            'guard_name' => 'web', 
+            'dashboard_route' => $dashboardRoute,
         ]);
         return redirect()->route('admin.roles.list')->with('success', 'Role created successfully');
     }
@@ -121,7 +115,7 @@ class RoleController extends Controller
                            ->with('error', 'Error updating role: ' . $e->getMessage());
         }
     }
-    //update method - END OF CHANGES
+    
 
     //edit
     public function edit($id)

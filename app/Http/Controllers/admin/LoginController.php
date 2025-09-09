@@ -31,13 +31,25 @@ class LoginController extends Controller
 
         
         // Get only email & password
-        $credentials =$request->except('_token','remember');
-        
+        $credentials = $request->only('email', 'password');
+
         //dd($credentials);
         if (Auth::attempt($credentials)) {
-            return redirect()->route('admin.dashboard');
-        } else {
-        return redirect()->back()->with('error', 'Invalid email or password')->withInput();
+       
+            $user = Auth::user();
+            
+            // Get the first role of the user
+            $role = $user->roles->first();
+            
+            if ($role) {
+                return redirect()->route($role->dashboard_route);
+            }
+            
+            // If no role is assigned, redirect to a default route
+            return redirect()->route('dashboard')->with('error', 'No role assigned. Please contact administrator.');
         }
-    }
+
+        return redirect()->route('login')
+            ->withErrors(['email' => 'The provided credentials do not match our records.']);
+     }
 }

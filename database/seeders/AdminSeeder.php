@@ -19,7 +19,10 @@ class AdminSeeder extends Seeder
     {
         // Create or get the superadmin role
         $role = Role::firstOrCreate(['name' => 'superadmin'], [
-            'guard_name' => 'web'
+            'guard_name' => 'web',
+            'dashboard_route' => 'admin.dashboard', // Add default dashboard route
+            'status' => 'active',
+            'icon' => 'fa-user-shield'
         ]);
 
         // Create a department if not exists
