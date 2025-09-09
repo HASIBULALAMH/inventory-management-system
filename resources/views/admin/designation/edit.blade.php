@@ -67,18 +67,18 @@
           <!-- Auto-generated Code -->
           <div class="col-md-6">
             <label class="form-label">Designation Code</label>
-            <div class="code-preview" id="codePreview">CODE_WILL_APPEAR_HERE</div>
-            <input type="hidden" name="code" id="codeInput">
+            <div class="code-preview" id="codePreview">{{ $designation->code }}</div>
+            <input type="hidden" name="code" id="codeInput" value="{{ $designation->code }}">
             <small class="text-muted">Code is auto-generated from the designation name</small>
           </div>
 
           <!-- Department -->
           <div class="col-md-6">
             <label for="department_id" class="form-label">Department <span class="text-danger">*</span></label>
-            <select class="form-select" id="department_id" value="{{ $designation->department_id }}" name="department_id" required>
-              <option value="" selected disabled>Select Department</option>
+            <select class="form-select" id="department_id" name="department_id" required>
+              <option value="" disabled>Select Department</option>
               @foreach($departments as $department)
-                <option value="{{ $department->id }}">{{ $department->name }}</option>
+                <option value="{{ $department->id }}" {{ $designation->department_id == $department->id ? 'selected' : '' }}>{{ $department->name }}</option>
               @endforeach
             </select>
             @error('department_id')
@@ -89,9 +89,9 @@
           <!-- Status -->
           <div class="col-md-6">
             <label class="form-label">Status <span class="text-danger">*</span></label>
-            <select class="form-select" value="{{ $designation->status }}" name="status" required>
-              <option value="active">Active</option>
-              <option value="inactive">Inactive</option>
+            <select class="form-select" name="status" required>
+              <option value="active" {{ $designation->status == 'active' ? 'selected' : '' }}>Active</option>
+              <option value="inactive" {{ $designation->status == 'inactive' ? 'selected' : '' }}>Inactive</option>
             </select>
           </div>
 
@@ -107,34 +107,35 @@
   </div>
 </div>
 
+@endsection
+
+@section('scripts')
 <script>
-function generateCode() {
+  // Initialize code preview with current value
+  document.addEventListener('DOMContentLoaded', function() {
+    generateCode();
+  });
+
+  function generateCode() {
     const nameInput = document.getElementById('name');
     const codePreview = document.getElementById('codePreview');
     const codeInput = document.getElementById('codeInput');
     
-    if (nameInput.value.trim() === '') {
-        codePreview.textContent = 'CODE_WILL_APPEAR_HERE';
-        codeInput.value = '';
-        return;
-    }
-    
-    // Convert to uppercase, replace spaces with underscores, and remove special characters
-    let code = nameInput.value
+    if (nameInput.value.trim() !== '') {
+      // Generate a code from the name (e.g., "Senior Developer" -> "SENIOR_DEVELOPER")
+      const code = nameInput.value
         .toUpperCase()
-        .replace(/[^\w\s]/gi, '') // Remove special characters
-        .replace(/\s+/g, '_')      // Replace spaces with underscores
-        .replace(/_+/g, '_')        // Replace multiple underscores with single
-        .replace(/^_+|_+$/g, '');   // Remove leading/trailing underscores
-    
-    // If code is empty after processing (e.g., only special characters were entered)
-    if (code === '') {
-        code = 'DESIGNATION';
+        .replace(/[^\w\s]/g, '')  // Remove special characters
+        .trim()
+        .replace(/\s+/g, '_');     // Replace spaces with underscores
+      
+      codePreview.textContent = code;
+      codeInput.value = code;
+    } else {
+      // If name is empty, show the current code
+      codePreview.textContent = '{{ $designation->code }}';
+      codeInput.value = '{{ $designation->code }}';
     }
-    
-    codePreview.textContent = code;
-    codeInput.value = code;
-}
+  }
 </script>
-
 @endsection

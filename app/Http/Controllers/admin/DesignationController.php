@@ -55,25 +55,42 @@ class DesignationController extends Controller
 
     //update
     public function update(Request $request, $id){
+        $designation = Designation::findOrFail($id);
+        
         $validate = Validator::make($request->all(), [
-            'name' => 'required|max:255|unique:designations,name',
-            'code' => 'required|max:255|unique:designations,code',
-            'department_id' => 'required',
+            'name' => 'required|string|max:255|unique:designations,name,' . $id,
+            'code' => 'required|string|max:255|unique:designations,code,' . $id,
+            'department_id' => 'required|exists:departments,id',
             'status' => 'required|in:active,inactive',
+        ], [
+            'department_id.exists' => 'The selected department is invalid.',
+            'name.unique' => 'This designation name is already in use.',
+            'code.unique' => 'This code is already in use.',
         ]);
 
         if ($validate->fails()) {
-            return redirect()->back()->withErrors($validate)->withInput();
+            return redirect()->back()
+                ->withErrors($validate)
+                ->withInput();
         }
 
-        $designation = Designation::findOrFail($id);
-        $designation->update([
-            'name' => $request->name,
-            'code' => $request->code,
-            'department_id' => $request->department_id,
-            'status' => $request->status,
-        ]);
-        return redirect()->route('admin.designations.list')->with('success', 'Designation updated successfully');
+        try {
+            $designation->update([
+                'name' => $request->name,
+                'code' => $request->code,
+                'department_id' => $request->department_id,
+                'status' => $request->status,
+            ]);
+
+            return redirect()
+                ->route('admin.designations.list')
+                ->with('success', 'Designation updated successfully');
+                
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->with('error', 'Error updating designation: ' . $e->getMessage())
+                ->withInput();
+        }
     }
 
     //delete
