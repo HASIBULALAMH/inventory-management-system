@@ -11,4 +11,9 @@ class WarehouseController extends Controller
     public function list(){
         return view('warehouse.list');
     }
+
+    //create
+    public function create(){
+        return view('warehouse.create');
+    }
 }

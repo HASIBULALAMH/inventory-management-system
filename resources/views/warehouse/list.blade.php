@@ -40,7 +40,7 @@
   <div class="card warehouse-card">
     <div class="card-header d-flex flex-wrap align-items-center justify-content-between gap-2">
       <h5 class="mb-0"><i class="fa-solid fa-warehouse me-2"></i>Warehouse Management</h5>
-      <a href="#" class="btn btn-light btn-sm">
+      <a href="{{ route('admin.warehouses.create') }}" class="btn btn-light btn-sm">
         <i class="fa-solid fa-plus me-1"></i>Create Warehouse
       </a>
     </div>

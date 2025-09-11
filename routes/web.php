@@ -80,6 +80,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
 
     //warehouse
     Route::get('warehouses', [WarehouseController::class, 'list'])->name('warehouses.list');
-});
+    Route::get('warehouses/create', [WarehouseController::class, 'create'])->name('warehouses.create');
+   });
 
   
