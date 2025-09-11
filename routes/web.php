@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\DesignationController;
+use App\Http\Controllers\Regional\DashboardController as RegionalDashboardController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -75,4 +76,10 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::get('users', [UserController::class, 'list'])->name('users.list');
     Route::get('users/create', [UserController::class, 'create'])->name('users.create');
     Route::post('users/store', [UserController::class, 'store'])->name('users.store');
+   });
+
+
+   //Regional Manager
+   Route::group(['middleware' => ['auth'], 'prefix' => 'regional-manager', 'as' => 'regional-manager.'], function () {
+        Route::get('dashboard', [RegionalDashboardController::class, 'dashboard'])->name('dashboard');
    });

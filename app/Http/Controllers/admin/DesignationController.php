@@ -83,7 +83,7 @@ class DesignationController extends Controller
             ]);
 
             return redirect()
-                ->route('admin.designations.list')
+                ->route('admon.designations.list')
                 ->with('success', 'Designation updated successfully');
                 
         } catch (\Exception $e) {

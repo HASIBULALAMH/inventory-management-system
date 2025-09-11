@@ -24,7 +24,7 @@ class RoleController extends Controller
     //store method
     public function store(Request $request)
     {
-        // Line 25: Add 'unique:roles,name' validation rule
+        // validation rule
         $validate = Validator::make($request->all(), [
             'name' => 'required|max:255|unique:roles,name', // Ensures role name is unique in the 'roles' table
             'icon' => 'required|image|mimes:jpeg,png,jpg,gif|max:10240',
@@ -59,14 +59,14 @@ class RoleController extends Controller
         ]);
         return redirect()->route('admin.roles.list')->with('success', 'Role created successfully');
     }
-    //store method - END OF CHANGES
+    
 
-    //update method - START OF CHANGES
+    //update method
     public function update(Request $request, $id) {
-        // Line 60: Find the role first before validation
+       
         $role = Role::findOrFail($id);
 
-        // Line 63: Add 'unique:roles,name,' . $id to ignore the current role's ID
+        // validation
         $validation = Validator::make($request->all(), [
             'name' => 'required|max:255|unique:roles,name,' . $id, // Ignores current role's ID for uniqueness check
             'icon' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
@@ -93,12 +93,12 @@ class RoleController extends Controller
         }
 
         try {
-            // Line 106: Update the role's attributes - Add 'guard_name' explicitly
+            // Update the role's attributes
             $role->update([
                 'name' => $request->name,
                 'icon' => $fileName,
                 'status' => $request->status,
-                'guard_name' => 'web', // Explicitly set the guard name
+                'guard_name' => 'web', 
             ]);
 
             return redirect()->route('admin.roles.list')
@@ -149,7 +149,7 @@ class RoleController extends Controller
     public function permissionAssign($id){
         $role = Role::find($id);
         $permissions = Permission::all();
-        return view('admin.role.permission-assign', compact('role', 'permissions'));
+        return view('role.permission-assign', compact('role', 'permissions'));
     }
 
 

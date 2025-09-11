@@ -14,7 +14,7 @@
 
 	<link rel="canonical" href="https://demo-basic.adminkit.io/" />
 
-	<title>AdminKit Demo - Bootstrap 5 Admin Template</title>
+	<title>Inventory Management System</title>
 
 	<link href="{{ asset('assets/css/app.css') }}" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
@@ -28,12 +28,12 @@
 <body>
 	<div class="wrapper">
 		<!-- Sidebar -->
-		@include('admin.partial.sidebar')
+		@include('layout.sidebar')
 		<!-- End Sidebar -->
 
 		<div class="main">
 			<!-- Top Navbar -->
-			@include('admin.partial.navbar')
+			@include('layout.navbar')
 			<!-- End Top Navbar -->
 
 			<main class="content">
@@ -42,7 +42,7 @@
 				<!-- End Main Content -->
 			</main>
 			<!-- Footer -->
-			@include('admin.partial.footer')
+			@include('layout.footer')
 			<!-- End Footer -->
 		</div>
 	</div>
