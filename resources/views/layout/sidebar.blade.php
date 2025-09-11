@@ -28,35 +28,35 @@
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="{{route('admin.users.list')}}">
-                    <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle"> Users</span>
+                <a class="sidebar-link" href="{{route('admin.departments.list')}}">
+                    <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle"> Departments</span>
                 </a>
             </li>
 
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="{{route('admin.departments.list')}}">
-                    <i class="align-middle" data-feather="book"></i> <span class="align-middle">Departments</span>
-                </a>
-            </li>
             <li class="sidebar-item">
                 <a class="sidebar-link" href="{{route('admin.designations.list')}}">
                     <i class="align-middle" data-feather="book"></i> <span class="align-middle">Designations</span>
                 </a>
             </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{{route('admin.users.list')}}">
+                    <i class="align-middle" data-feather="book"></i> <span class="align-middle">Users</span>
+                </a>
+            </li>
 
             <li class="sidebar-header">
-                Tools & Components
+              modules
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="ui-buttons.html">
-                    <i class="align-middle" data-feather="square"></i> <span class="align-middle">Buttons</span>
+                <a class="sidebar-link" href="{{ route('admin.warehouses.list') }}">
+                    <i class="align-middle" data-feather="square"></i> <span class="align-middle">warehouses</span>
                 </a>
             </li>
 
             <li class="sidebar-item">
                 <a class="sidebar-link" href="ui-forms.html">
-                    <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">Forms</span>
+                    <i class="align-middle" data-feather="check-square"></i> <span class="align-middle"></span>
                 </a>
             </li>
 
