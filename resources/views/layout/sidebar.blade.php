@@ -45,52 +45,64 @@
             </li>
 
             <li class="sidebar-header">
-              modules
+              Modules
             </li>
 
             <li class="sidebar-item">
                 <a class="sidebar-link" href="{{ route('admin.warehouses.list') }}">
-                    <i class="align-middle" data-feather="square"></i> <span class="align-middle">warehouses</span>
+                    <i class="align-middle" data-feather="square"></i> <span class="align-middle">Warehouses</span>
                 </a>
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="ui-forms.html">
-                    <i class="align-middle" data-feather="check-square"></i> <span class="align-middle"></span>
+                <a class="sidebar-link" href="">
+                    <i class="align-middle" data-feather="package"></i> <span class="align-middle">Products</span>
                 </a>
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="ui-cards.html">
-                    <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Cards</span>
+                <a class="sidebar-link" href="">
+                    <i class="align-middle" data-feather="list"></i> <span class="align-middle">Categories</span>
                 </a>
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="ui-typography.html">
-                    <i class="align-middle" data-feather="align-left"></i> <span class="align-middle">Typography</span>
-                </a>
-            </li>
-
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="icons-feather.html">
-                    <i class="align-middle" data-feather="coffee"></i> <span class="align-middle">Icons</span>
+                <a class="sidebar-link" href="">
+                    <i class="align-middle" data-feather="brand"></i> <span class="align-middle">Brands</span>
                 </a>
             </li>
 
             <li class="sidebar-header">
-                Plugins & Addons
+                Locations
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="charts-chartjs.html">
-                    <i class="align-middle" data-feather="bar-chart-2"></i> <span class="align-middle">Charts</span>
+                <a class="sidebar-link" href="{{ route('admin.locations.countries.list') }}">
+                    <i class="align-middle" data-feather="globe"></i> <span class="align-middle">Countries</span>
                 </a>
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="maps-google.html">
-                    <i class="align-middle" data-feather="map"></i> <span class="align-middle">Maps</span>
+                <a class="sidebar-link" href="{{ route('admin.locations.states.list') }}">
+                    <i class="align-middle" data-feather="globe"></i> <span class="align-middle">States</span>
+                </a>
+            </li>
+
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{{ route('admin.locations.cities.list') }}">
+                    <i class="align-middle" data-feather="globe"></i> <span class="align-middle">Cities</span>
+                </a>
+            </li>
+
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="">
+                    <i class="align-middle" data-feather="globe"></i> <span class="align-middle">Upazilas</span>
+                </a>
+            </li>
+
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="">
+                    <i class="align-middle" data-feather="globe"></i> <span class="align-middle">Zip Codes</span>
                 </a>
             </li>
         </ul>

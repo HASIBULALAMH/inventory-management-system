@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\CityController;
+use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\LoginController;
 use App\Http\Controllers\Admin\RoleController;
@@ -7,6 +9,7 @@ use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\DesignationController;
+use App\Http\Controllers\Admin\StateController;
 use App\Http\Controllers\Regional\DashboardController as RegionalDashboardController;
 use App\Http\Controllers\Warehouse\WarehouseController;
 use Illuminate\Support\Facades\Route;
@@ -70,8 +73,34 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::put('designations/update/{id}', [DesignationController::class, 'update'])->name('designations.update');
     Route::delete('designations/delete/{id}', [DesignationController::class, 'delete'])->name('designations.delete');
 
+    //location  
+    Route::group(['prefix' => 'locations', 'as' => 'locations.'], function () {
+        //country
+        Route::get('countries', [CountryController::class, 'list'])->name('countries.list');
+        Route::get('countries/create', [CountryController::class, 'create'])->name('countries.create');
+        Route::post('countries/store', [CountryController::class, 'store'])->name('countries.store');
+        Route::get('countries/edit/{id}', [CountryController::class, 'edit'])->name('countries.edit');
+        Route::put('countries/update/{id}', [CountryController::class, 'update'])->name('countries.update');
+        Route::delete('countries/delete/{id}', [CountryController::class, 'delete'])->name('countries.delete');
 
-
+        //state
+        Route::get('states', [StateController::class, 'list'])->name('states.list');
+        Route::get('states/create', [StateController::class, 'create'])->name('states.create');
+        Route::post('states/store', [StateController::class, 'store'])->name('states.store');
+        Route::get('states/edit/{id}', [StateController::class, 'edit'])->name('states.edit');
+        Route::put('states/update/{id}', [StateController::class, 'update'])->name('states.update');
+        Route::delete('states/delete/{id}', [StateController::class, 'delete'])->name('states.delete');
+      
+        //city
+        Route::get('cities', [CityController::class, 'list'])->name('cities.list');
+        Route::get('cities/create', [CityController::class, 'create'])->name('cities.create');
+        Route::post('cities/store', [CityController::class, 'store'])->name('cities.store');
+        Route::get('cities/edit/{id}', [CityController::class, 'edit'])->name('cities.edit');
+        Route::put('cities/update/{id}', [CityController::class, 'update'])->name('cities.update');
+        Route::delete('cities/delete/{id}', [CityController::class, 'delete'])->name('cities.delete');
+    
+    
+    });
 
     //user
     Route::get('users', [UserController::class, 'list'])->name('users.list');
