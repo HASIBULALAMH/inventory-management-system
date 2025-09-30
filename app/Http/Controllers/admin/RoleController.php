@@ -146,11 +146,11 @@ class RoleController extends Controller
 
 
     //permission assign
-    public function permissionAssign($id){
-        $role = Role::find($id);
-        $permissions = Permission::all();
-        return view('role.permission-assign', compact('role', 'permissions'));
-    }
+   public function permissionAssign($id){
+    $role = Role::find($id);
+    $permissions = Permission::all();
+    return view('admin.Role.permission-assign', compact('role', 'permissions'));
+}
 
 
     //permission assign store

@@ -131,8 +131,8 @@
     </form>
   </div>
 </div>
-
-{{-- AJAX Script --}}
+<script src="{{ asset('assets/js/location.js') }}"></script>
+<script src="{{ asset('assets/js/user.js') }}"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function() {
 
@@ -144,75 +144,8 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("warehouse_slug").value = name.toLowerCase().replace(/\s+/g,'-');
   });
 
-  // Country -> State
-  document.getElementById("country").addEventListener("change", function() {
-      let countryId = this.value;
-      let stateSelect = document.getElementById("state");
-      let citySelect  = document.getElementById("city");
-      stateSelect.innerHTML = '<option value="">-- Select State --</option>';
-      citySelect.innerHTML = '<option value="">-- Select City --</option>';
-      document.getElementById("zipcode").value = '';
-      
-      if(countryId) {
-          fetch(`/admin/warehouse/get-states/${countryId}`)
-          .then(res => res.json())
-          .then(data => {
-              data.forEach(state => {
-                  stateSelect.innerHTML += `<option value="${state.id}">${state.name}</option>`;
-              });
-          })
-          .catch(err => console.error('Error fetching states:', err));
-      }
-  });
-
-
-  // State -> City
-  document.getElementById("state").addEventListener("change", function() {
-      let stateId = this.value;
-      let citySelect = document.getElementById("city");
-      citySelect.innerHTML = '<option value="">-- Select City --</option>';
-      document.getElementById("zipcode").value = '';
-      
-      if(stateId) {
-          fetch(`/admin/warehouse/get-cities/${stateId}`)
-          .then(res => res.json())
-          .then(data => {
-              data.forEach(city => {
-                  citySelect.innerHTML += `<option value="${city.id}" data-zipcode="${city.zip_code || ''}">${city.name}</option>`;
-              });
-          })
-          .catch(err => console.error('Error fetching cities:', err));
-      }
-  });
-
-  // City -> Zipcode
-  document.getElementById("city").addEventListener("change", function() {
-      let selected = this.options[this.selectedIndex];
-      let zipcode = selected.getAttribute("data-zipcode") || '';
-      document.getElementById("zipcode").value = zipcode;
-  });
-
-  // Manager -> details
-  document.getElementById("manager").addEventListener("change", function() {
-      let managerId = this.value;
-      if(managerId) {
-          fetch(`/admin/warehouse/get-manager/${managerId}`)
-          .then(res => res.json())
-          .then(data => {
-              document.getElementById("manager_email").value = data.email || '';
-              document.getElementById("manager_phone").value = data.phone || '';
-          })
-          .catch(err => {
-              console.error('Error fetching manager details:', err);
-              document.getElementById("manager_email").value = '';
-              document.getElementById("manager_phone").value = '';
-          });
-      } else {
-          document.getElementById("manager_email").value = '';
-          document.getElementById("manager_phone").value = '';
-      }
-  });
 });
 </script>
+
 
 @endsection

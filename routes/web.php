@@ -33,6 +33,9 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::get('roles/edit/{id}', [RoleController::class, 'edit'])->name('roles.edit');
     Route::put('roles/update/{id}', [RoleController::class, 'update'])->name('roles.update');
     Route::delete('roles/delete/{id}', [RoleController::class, 'delete'])->name('roles.delete');
+
+    Route::get('roles/permissions/assign/{id}', [RoleController::class, 'permissionAssign'])->name('roles.permissions.assign');
+    Route::post('roles/permissions/assign/store/{id}', [RoleController::class, 'permissionAssignStore'])->name('roles.permissions.assign.store');
     
     //permission
     Route::get('permissions', [PermissionController::class, 'list'])->name('permissions.list');
