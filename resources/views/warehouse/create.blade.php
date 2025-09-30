@@ -3,192 +3,216 @@
 @section('content')
 
 <style>
-  .warehouse-form-card {
+  .form-card {
     border: 0;
     border-radius: 1rem;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, .06);
+    box-shadow: 0 10px 25px rgba(0,0,0,.07);
     overflow: hidden;
   }
-
-  .warehouse-form-card .card-header {
+  .form-card .card-header {
     background: linear-gradient(135deg, #20c997, #6f42c1);
     color: #fff;
     padding: 1rem 1.25rem;
   }
-
-  .form-label {
-    font-weight: 500;
-    color: #495057;
+  .form-control:focus, .form-select:focus {
+    box-shadow: 0 0 0 0.2rem rgba(32,201,151,.25);
+    border-color: #20c997;
   }
-
-  .form-control,
-  .form-select {
-    border-radius: .6rem;
-    padding: .6rem .9rem;
-  }
-
-  .btn-gradient {
-    background: linear-gradient(135deg, #20c997, #6f42c1);
-    border: 0;
-    color: #fff;
-    border-radius: .6rem;
-    transition: all .3s ease;
-  }
-
-  .btn-gradient:hover {
-    opacity: .9;
-    transform: translateY(-2px);
+  .required::after {
+    content: " *";
+    color: red;
+    font-weight: bold;
   }
 </style>
 
 <div class="container my-4">
-  <div class="card warehouse-form-card">
-    <div class="card-header d-flex align-items-center justify-content-between">
-      <h5 class="mb-0"><i class="fa-solid fa-plus-circle me-2"></i>Create Warehouse</h5>
-      <a href="#" class="btn btn-light btn-sm"><i class="fa-solid fa-list me-1"></i>Warehouse List</a>
+  <div class="card form-card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h5 class="mb-0"><i class="fa-solid fa-warehouse me-2"></i>Create Warehouse</h5>
+      <a href="{{ route('admin.warehouse.list') }}" class="btn btn-light btn-sm">
+        <i class="fa-solid fa-arrow-left me-1"></i> Back to List
+      </a>
     </div>
 
-    <div class="card-body">
-      <form action="#" method="POST">
-        @csrf
-        <div class="row g-3">
+    <form action="{{ route('admin.warehouse.store') }}" method="POST" class="p-4">
+      @csrf
+      <div class="row g-3">
 
-          <!-- Warehouse Name -->
-          <div class="col-md-6">
-            <label class="form-label">Warehouse Name <span class="text-danger">*</span></label>
-            <input type="text" class="form-control" id="warehouseName" name="name" placeholder="Enter Warehouse Name" required>
-          </div>
-
-          <!-- Warehouse Code (auto generate from name) -->
-          <div class="col-md-6">
-            <label class="form-label">Warehouse Code / ID <span class="text-danger">*</span></label>
-            <input type="text" class="form-control" id="warehouseCode" name="code" placeholder="Auto generated" readonly>
-          </div>
-
-          <!-- Location / Address -->
-          <div class="col-md-12">
-            <label class="form-label">Location / Address <span class="text-danger">*</span></label>
-            <textarea class="form-control" name="address" rows="2" placeholder="Street, City, Zip" required></textarea>
-          </div>
-
-          <!-- Country / State / City -->
-          <div class="col-md-4">
-            <label class="form-label">Country</label>
-            <input type="text" class="form-control" name="country" placeholder="Enter Country">
-          </div>
-          <div class="col-md-4">
-            <label class="form-label">State</label>
-            <input type="text" class="form-control" name="state" placeholder="Enter State">
-          </div>
-          <div class="col-md-4">
-            <label class="form-label">City</label>
-            <input type="text" class="form-control" name="city" placeholder="Enter City">
-          </div>
-
-          <!-- Contact Person -->
-          <div class="col-md-6">
-            <label class="form-label">Contact Person</label>
-            <input type="text" class="form-control" name="contact_person" placeholder="Enter Contact Person">
-          </div>
-
-          <!-- Phone -->
-          <div class="col-md-3">
-            <label class="form-label">Phone</label>
-            <input type="text" class="form-control" name="phone" placeholder="Enter Phone Number">
-          </div>
-
-          <!-- Email -->
-          <div class="col-md-3">
-            <label class="form-label">Email</label>
-            <input type="email" class="form-control" name="email" placeholder="Enter Email">
-          </div>
-
-          <!-- Status -->
-          <div class="col-md-4">
-            <label class="form-label">Status <span class="text-danger">*</span></label>
-            <select class="form-select" name="status" required>
-              <option value="1">Active</option>
-              <option value="0">Inactive</option>
-            </select>
-          </div>
-
-          <!-- Capacity -->
-          <div class="col-md-4">
-            <label class="form-label">Capacity</label>
-            <input type="text" class="form-control" name="capacity" placeholder="Enter Capacity (e.g., 5000 units)">
-          </div>
-
-          <!-- Warehouse Type -->
-          <div class="col-md-4">
-            <label class="form-label">Warehouse Type</label>
-            <select class="form-select" name="type">
-              <option value="">Select Type</option>
-              <option>Main</option>
-              <option>Regional</option>
-              <option>Cold Storage</option>
-              <option>Raw Materials</option>
-              <option>Finished Goods</option>
-            </select>
-          </div>
-
-          <!-- Operating Hours -->
-          <div class="col-md-6">
-            <label class="form-label">Operating Hours</label>
-            <input type="text" class="form-control" name="operating_hours" placeholder="e.g., 9 AM - 6 PM">
-          </div>
-
-          <!-- Linked Departments -->
-          <div class="col-md-6">
-            <label class="form-label">Linked Departments</label>
-            <select class="form-select" name="departments[]" multiple>
-              <option>Sales</option>
-              <option>Production</option>
-              <option>Accounts</option>
-              <option>Logistics</option>
-            </select>
-          </div>
-
-          <!-- Inventory System ID -->
-          <div class="col-md-6">
-            <label class="form-label">Inventory System ID</label>
-            <input type="text" class="form-control" name="inventory_id" placeholder="Optional Integration ID">
-          </div>
-
-          <!-- Supervisor / Manager -->
-          <div class="col-md-6">
-            <label class="form-label">Supervisor / Manager</label>
-            <select class="form-select" name="supervisor_id">
-              <option value="">Select Supervisor</option>
-              <option value="1">John Doe</option>
-              <option value="2">Jane Smith</option>
-              <option value="3">Michael Brown</option>
-            </select>
-          </div>
-
-          <!-- Notes / Description -->
-          <div class="col-md-12">
-            <label class="form-label">Notes / Description</label>
-            <textarea class="form-control" name="notes" rows="2" placeholder="Extra warehouse details"></textarea>
-          </div>
-
-          <!-- Action Buttons -->
-          <div class="col-12 d-flex justify-content-end gap-2 mt-3">
-            <button type="reset" class="btn btn-outline-secondary"><i class="fa-solid fa-rotate-left me-1"></i>Reset</button>
-            <button type="submit" class="btn btn-gradient"><i class="fa-solid fa-save me-1"></i>Save Warehouse</button>
-          </div>
-
+        <!-- Name, Code, Slug -->
+        <div class="col-md-4">
+          <label class="form-label required">Warehouse Name</label>
+          <input type="text" id="warehouse_name" name="name" class="form-control" required>
         </div>
-      </form>
-    </div>
+        <div class="col-md-4">
+          <label class="form-label required">Warehouse Code</label>
+          <input type="text" id="warehouse_code" name="code" class="form-control" readonly required>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Slug</label>
+          <input type="text" id="warehouse_slug" name="slug" class="form-control" readonly>
+        </div>
+
+        <!-- Country, State, City -->
+        <div class="col-md-4">
+          <label class="form-label required">Country</label>
+          <select id="country" name="country_id" class="form-select" required>
+            <option value="">-- Select Country --</option>
+            @foreach($countries as $country)
+              <option value="{{ $country->id }}">{{ $country->name }}</option>
+            @endforeach
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label required">State</label>
+          <select id="state" name="state_id" class="form-select" required>
+            <option value="">-- Select State --</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label required">City</label>
+          <select id="city" name="city_id" class="form-select" required>
+            <option value="">-- Select City --</option>
+          </select>
+        </div>
+
+        <!-- Zipcode -->
+        <div class="col-md-4">
+          <label class="form-label">Zipcode</label>
+          <input type="text" id="zipcode" name="zipcode" class="form-control" readonly>
+        </div>
+
+        <!-- Manager/User -->
+        <div class="col-md-4">
+          <label class="form-label required">Supervisor</label>
+          <select id="manager" name="manager_id" class="form-select" required>
+            <option value="">-- Select User --</option>
+            @foreach($users as $user)
+              <option value="{{ $user->id }}">{{ $user->name }}</option>
+            @endforeach
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Email</label>
+          <input type="text" id="manager_email" class="form-control" readonly>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Phone</label>
+          <input type="text" id="manager_phone" class="form-control" readonly>
+        </div>
+
+        <!-- Capacity & Date & Status -->
+        <div class="col-md-4">
+          <label class="form-label required">Capacity</label>
+          <input type="number" name="capacity" class="form-control" required>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label required">Opening Date</label>
+          <input type="date" name="starting_date" class="form-control" required>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label required">Status</label>
+          <select name="status" class="form-select" required>
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+          </select>
+        </div>
+
+      </div>
+
+      <!-- Submit -->
+      <div class="mt-4 d-flex gap-2">
+        <button type="submit" class="btn btn-success px-4">
+          <i class="fa-solid fa-floppy-disk me-1"></i> Save Warehouse
+        </button>
+        <a href="{{ route('admin.warehouse.list') }}" class="btn btn-secondary px-4">
+          <i class="fa-solid fa-xmark me-1"></i> Cancel
+        </a>
+      </div>
+    </form>
   </div>
 </div>
 
-<!-- Auto-generate Warehouse Code -->
+{{-- AJAX Script --}}
 <script>
-  document.getElementById('warehouseName').addEventListener('input', function() {
-    let code = this.value.trim().toUpperCase().replace(/\s+/g, '_');
-    document.getElementById('warehouseCode').value = code.substring(0, 10);
+document.addEventListener("DOMContentLoaded", function() {
+
+  // Auto code & slug
+  const nameInput = document.getElementById("warehouse_name");
+  nameInput.addEventListener("input", function() {
+    let name = this.value.trim();
+    document.getElementById("warehouse_code").value = name.toUpperCase().replace(/\s+/g,'_').substring(0,10);
+    document.getElementById("warehouse_slug").value = name.toLowerCase().replace(/\s+/g,'-');
   });
+
+  // Country -> State
+  document.getElementById("country").addEventListener("change", function() {
+      let countryId = this.value;
+      let stateSelect = document.getElementById("state");
+      let citySelect  = document.getElementById("city");
+      stateSelect.innerHTML = '<option value="">-- Select State --</option>';
+      citySelect.innerHTML = '<option value="">-- Select City --</option>';
+      document.getElementById("zipcode").value = '';
+      
+      if(countryId) {
+          fetch(`/admin/warehouse/get-states/${countryId}`)
+          .then(res => res.json())
+          .then(data => {
+              data.forEach(state => {
+                  stateSelect.innerHTML += `<option value="${state.id}">${state.name}</option>`;
+              });
+          })
+          .catch(err => console.error('Error fetching states:', err));
+      }
+  });
+
+
+  // State -> City
+  document.getElementById("state").addEventListener("change", function() {
+      let stateId = this.value;
+      let citySelect = document.getElementById("city");
+      citySelect.innerHTML = '<option value="">-- Select City --</option>';
+      document.getElementById("zipcode").value = '';
+      
+      if(stateId) {
+          fetch(`/admin/warehouse/get-cities/${stateId}`)
+          .then(res => res.json())
+          .then(data => {
+              data.forEach(city => {
+                  citySelect.innerHTML += `<option value="${city.id}" data-zipcode="${city.zip_code || ''}">${city.name}</option>`;
+              });
+          })
+          .catch(err => console.error('Error fetching cities:', err));
+      }
+  });
+
+  // City -> Zipcode
+  document.getElementById("city").addEventListener("change", function() {
+      let selected = this.options[this.selectedIndex];
+      let zipcode = selected.getAttribute("data-zipcode") || '';
+      document.getElementById("zipcode").value = zipcode;
+  });
+
+  // Manager -> details
+  document.getElementById("manager").addEventListener("change", function() {
+      let managerId = this.value;
+      if(managerId) {
+          fetch(`/admin/warehouse/get-manager/${managerId}`)
+          .then(res => res.json())
+          .then(data => {
+              document.getElementById("manager_email").value = data.email || '';
+              document.getElementById("manager_phone").value = data.phone || '';
+          })
+          .catch(err => {
+              console.error('Error fetching manager details:', err);
+              document.getElementById("manager_email").value = '';
+              document.getElementById("manager_phone").value = '';
+          });
+      } else {
+          document.getElementById("manager_email").value = '';
+          document.getElementById("manager_phone").value = '';
+      }
+  });
+});
 </script>
 
 @endsection

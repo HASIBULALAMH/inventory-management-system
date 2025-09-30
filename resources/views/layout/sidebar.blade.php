@@ -49,7 +49,7 @@
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="{{ route('admin.warehouses.list') }}">
+                <a class="sidebar-link" href="{{ route('admin.warehouse.list') }}">
                     <i class="align-middle" data-feather="square"></i> <span class="align-middle">Warehouses</span>
                 </a>
             </li>
