@@ -7,7 +7,7 @@
     border: 0;
     border-radius: 1rem;
     box-shadow: 0 10px 25px rgba(0, 0, 0, .07);
-    overflow: hidden;
+    overflow: visible;
   }
   .form-card .card-header {
     background: linear-gradient(135deg, #20c997, #6f42c1);
@@ -111,17 +111,78 @@
           <label class="form-label">Date of Birth</label>
           <input type="date" name="dob" class="form-control">
         </div>
+      <!-- nationnal id -->
+        <div class="col-md-6">
+          <label class="form-label">National ID</label>
+          <input type="text" name="national_id" class="form-control">
+        </div>
         <!-- Present Address -->
-        <div class="col-md-12">
-          <label class="form-label">Present Address</label>
-          <textarea name="present_address" class="form-control" rows="2"></textarea>
-        </div>
-        <!-- Permanent Address -->
-        <div class="col-md-12">
-          <label class="form-label">Permanent Address</label>
-          <textarea name="permanent_address" class="form-control" rows="2"></textarea>
-        </div>
-      </div>
+        <h6 class="mb-2 text-primary">Present Address</h6>
+<div class="row g-3">
+  <!-- Country -->
+  <div class="col-md-3">
+    <label class="form-label">Country</label>
+    <select id="present_country" name="present_country_id" class="form-select">
+      <option value="">-- Select Country --</option>
+      @foreach($countries as $country)
+        <option value="{{ $country->id }}">{{ $country->name }}</option>
+      @endforeach
+    </select>
+  </div>
+  <!-- State -->
+  <div class="col-md-3">
+    <label class="form-label">State</label>
+    <select id="present_state" name="present_state_id" class="form-select"></select>
+  </div>
+  <!-- City -->
+  <div class="col-md-3">
+    <label class="form-label">City</label>
+    <select id="present_city" name="present_city_id" class="form-select"></select>
+  </div>
+  <!-- Zipcode -->
+  <div class="col-md-3">
+    <label class="form-label">Zipcode</label>
+    <input type="text" id="present_zipcode" name="present_zipcode" class="form-control" readonly>
+  </div>
+</div>
+
+<div class="col-12 mb-2">
+  <input type="checkbox" id="sameAsPresent" />
+  <label for="sameAsPresent">Permanent Address same as Present Address</label>
+</div>
+
+
+<hr class="my-3">
+<!-- Permanent Address -->
+<h6 class="mb-2 text-primary">Permanent Address</h6>
+<div class="row g-3">
+  <!-- Country -->
+  <div class="col-md-3">
+    <label class="form-label">Country</label>
+    <select id="permanent_country" name="permanent_country_id" class="form-select">
+      <option value="">-- Select Country --</option>
+      @foreach($countries as $country)
+        <option value="{{ $country->id }}">{{ $country->name }}</option>
+      @endforeach
+    </select>
+  </div>
+  <!-- State -->
+  <div class="col-md-3">
+    <label class="form-label">State</label>
+    <select id="permanent_state" name="permanent_state_id" class="form-select"></select>
+  </div>
+  <!-- City -->
+  <div class="col-md-3">
+    <label class="form-label">City</label>
+    <select id="permanent_city" name="permanent_city_id" class="form-select"></select>
+  </div>
+  <!-- Zipcode -->
+  <div class="col-md-3">
+    <label class="form-label">Zipcode</label>
+    <input type="text" id="permanent_zipcode" name="permanent_zipcode" class="form-control" readonly>
+  </div>
+</div>
+
 
       <hr class="my-4">
 
@@ -191,7 +252,32 @@
   </div>
 </div>
 
-<!-- Script: Auto Employee ID Generator -->
+
+<script src="{{ asset('assets/js/location.js') }}"></script>
+<script>initLocationSelector({
+    countryId: 'present_country',
+    stateId: 'present_state',
+    cityId: 'present_city',
+    zipcodeId: 'present_zipcode',
+    baseUrl: '{{ url("admin/user") }}'
+});
+
+initLocationSelector({
+    countryId: 'permanent_country',
+    stateId: 'permanent_state',
+    cityId: 'permanent_city',
+    zipcodeId: 'permanent_zipcode',
+    baseUrl: '{{ url("admin/user") }}'
+});
+
+enablePermanentAutofill(
+    { countryId: 'present_country', stateId: 'present_state', cityId: 'present_city', zipcodeId: 'present_zipcode' },
+    { countryId: 'permanent_country', stateId: 'permanent_state', cityId: 'permanent_city', zipcodeId: 'permanent_zipcode' },
+    'sameAsPresent'
+);
+
+</script>
+<!-- genarate employee id -->
 <script>
   function generateEmployeeId() {
     const name = document.querySelector('input[name="name"]').value || 'USR';

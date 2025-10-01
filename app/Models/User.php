@@ -79,12 +79,15 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Warehouse::class, 'user_warehouses', 'user_id', 'warehouse_id');
     }
-
-
-    public function userWarehouses()
-    {
-        return $this->hasMany(Warehouse::class);
-    }
+public function country(){
+    return $this->belongsTo(Country::class);
+}
+public function state(){
+    return $this->belongsTo(State::class);
+}
+public function city(){
+    return $this->belongsTo(City::class);
+}
 
   
 

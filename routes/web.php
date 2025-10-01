@@ -52,6 +52,13 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::get('users/edit/{id}', [UserController::class, 'edit'])->name('users.edit');
     Route::put('users/update/{id}', [UserController::class, 'update'])->name('users.update');
     Route::delete('users/delete/{id}', [UserController::class, 'delete'])->name('users.delete');
+
+
+    //ajex user 
+    Route::get('/user/get-states/{country}',[UserController::class,'getStates']);
+    Route::get('/user/get-cities/{state}', [UserController::class,'getCities']);
+    Route::get('/user/get-zipcode/{city}', [UserController::class,'getZipcode']);
+    
     
     //department
     Route::get('departments', [DepartmentController::class, 'list'])->name('departments.list');

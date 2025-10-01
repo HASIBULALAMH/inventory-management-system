@@ -10,6 +10,9 @@ use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Designation;
 use App\Models\Department;
+use App\Models\Country;
+use App\Models\State;
+use App\Models\City;
 
 class UserController extends Controller
 {
@@ -48,11 +51,12 @@ class UserController extends Controller
 
     // Show create user form
     public function create()
-    {
+    { 
+        $countries = Country::all();
         $roles = Role::all();
         $designations = Designation::all();
         $departments = Department::all();
-        return view('admin.user.create', compact('roles', 'designations', 'departments'));
+        return view('admin.user.create', compact('roles', 'designations', 'departments', 'countries'));
     }
 
     // Store new user
@@ -73,7 +77,11 @@ class UserController extends Controller
             'join_date' => 'required|date',
             'profile_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'status' => 'required|in:active,inactive',
-            'role' => 'required|exists:roles,id'
+            'role' => 'required|exists:roles,id',
+            'country_id' => 'required|exists:countries,id',
+            'state_id' => 'required|exists:states,id',
+            'city_id' => 'required|exists:cities,id',
+            'zip_code' => 'required|string|max:20',
         ]);
 
         if ($validator->fails()) {
@@ -106,6 +114,10 @@ class UserController extends Controller
             'join_date' => $request->join_date,
             'profile_photo' => $filename,
             'status' => $request->status,
+            'country_id' => $request->country_id,
+            'state_id' => $request->state_id,
+            'city_id' => $request->city_id,
+            'zip_code' => $request->zip_code,
         ]);
 
         // Assign role
@@ -117,4 +129,26 @@ class UserController extends Controller
         return redirect()->route('admin.users.list')
             ->with('success', 'User created successfully');
     }
+
+
+
+
+
+    //ajex   
+     public function getStates(Country $country)
+    {
+        $states = $country->states;
+        return response()->json($states);
+   }
+   
+   public function getCities(State $state)
+   {
+        $cities = $state->cities;
+        return response()->json($cities);
+   }
+   
+   public function getZipcode(City $city)
+   {
+        return response()->json(['zipcode' => $city->zip_code]);
+   }
 }

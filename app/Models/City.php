@@ -29,4 +29,7 @@ class City extends Model
     {
         return $this->hasMany(Warehouse::class);
     }
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

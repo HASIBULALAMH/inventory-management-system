@@ -133,6 +133,17 @@
 </div>
 <script src="{{ asset('assets/js/location.js') }}"></script>
 <script src="{{ asset('assets/js/user.js') }}"></script>
+
+<script>
+    // For present address
+    const presentAddress = initLocationSelector({
+        countryId: 'country',
+        stateId: 'state',
+        cityId: 'city',
+        zipcodeId: 'zipcode',
+        baseUrl: '{{ url("/admin/warehouse") }}'
+    });
+</script>
 <script>
 document.addEventListener("DOMContentLoaded", function() {
 
