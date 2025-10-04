@@ -11,9 +11,7 @@ class City extends Model
         'code',
         'slug',
         'country_id',
-        'zip_code',
         'state_id',
-        'status',
     ];
 
     public function country()
@@ -25,11 +23,8 @@ class City extends Model
     {
         return $this->belongsTo(State::class);
     }
-    public function warehouse()
+    public function location()
     {
-        return $this->hasMany(Warehouse::class);
-    }
-    public function user(){
-        return $this->belongsTo(User::class);
+        return $this->hasMany(Location::class);
     }
 }

@@ -10,6 +10,13 @@ use Spatie\Permission\Traits\HasRoles;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\Models\Warehouse;
+use App\Models\Country;
+use App\Models\State;
+use App\Models\City;
+use App\Models\Thana;
+use App\Models\Union;
+use App\Models\ward;
+
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
@@ -79,17 +86,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Warehouse::class, 'user_warehouses', 'user_id', 'warehouse_id');
     }
-public function country(){
-    return $this->belongsTo(Country::class);
-}
-public function state(){
-    return $this->belongsTo(State::class);
-}
-public function city(){
-    return $this->belongsTo(City::class);
-}
-
-  
-
-  
+    public function location    (){
+    return $this->belongsTo(Location::class);
+    }
+    
+   
 }

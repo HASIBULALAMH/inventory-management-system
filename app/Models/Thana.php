@@ -4,23 +4,23 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class State extends Model
+class Thana extends Model
 {
     protected $fillable = [
         'name',
         'code',
         'slug',
-        'country_id',
+        'city_id', 
     ];
-
-    public function country()
+    //Relationship
+    public function city()
     {
-        return $this->belongsTo(Country::class);
+        return $this->belongsTo(City::class);
     }
-
-    public function cities()
+    public function union()
     {
-        return $this->hasMany(City::class);
+        return $this->hasMany(Union::class);
+        
     }
     public function location()
     {

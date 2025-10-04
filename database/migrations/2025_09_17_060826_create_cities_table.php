@@ -16,10 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('code')->unique();
             $table->string('slug')->unique();
-            $table->foreignId('state_id')->constrained()->onDelete('cascade');
-            $table->foreignId('country_id')->constrained()->onDelete('cascade');
-            $table->string('zip_code')->unique();
-            $table->enum('status', ['active', 'inactive'])->default('active');
+            $table->string('state_id');
+      
             $table->timestamps();
         });
     }

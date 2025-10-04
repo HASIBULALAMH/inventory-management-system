@@ -12,16 +12,10 @@ class Warehouse extends Model
     {
         return $this->belongsToMany(User::class, 'user_warehouses', 'warehouse_id', 'user_id');
     }
-    public function city()
+    public function location()
     {
-        return $this->belongsTo(City::class);
+        return $this->belongsTo(Location::class);
     }
-    public function state()
-    {
-        return $this->belongsTo(State::class);
-    }
-    public function country()
-    {
-        return $this->belongsTo(Country::class);
-    }
+    
+
 }

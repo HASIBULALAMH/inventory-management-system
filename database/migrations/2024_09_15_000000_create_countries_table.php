@@ -15,8 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('code', 10)->unique();
-            $table->string('phone_code', 10);
-            $table->enum('status', ['active', 'inactive'])->default('active');
+            $table->string('slug')->unique();
             $table->timestamps();
             $table->softDeletes();
         });

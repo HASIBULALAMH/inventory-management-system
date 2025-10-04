@@ -39,6 +39,13 @@
                 </a>
             </li>
             <li class="sidebar-item">
+                <a class="sidebar-link" href="{{route('admin.locations.list')}}">
+                    <i class="align-middle" data-feather="book"></i> <span class="align-middle">Locations</span>
+                </a>
+            </li>
+
+            
+            <li class="sidebar-item">
                 <a class="sidebar-link" href="{{route('admin.users.list')}}">
                     <i class="align-middle" data-feather="book"></i> <span class="align-middle">Users</span>
                 </a>
@@ -72,39 +79,6 @@
                 </a>
             </li>
 
-            <li class="sidebar-header">
-                Locations
-            </li>
-
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="{{ route('admin.locations.countries.list') }}">
-                    <i class="align-middle" data-feather="globe"></i> <span class="align-middle">Countries</span>
-                </a>
-            </li>
-
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="{{ route('admin.locations.states.list') }}">
-                    <i class="align-middle" data-feather="globe"></i> <span class="align-middle">States</span>
-                </a>
-            </li>
-
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="{{ route('admin.locations.cities.list') }}">
-                    <i class="align-middle" data-feather="globe"></i> <span class="align-middle">Cities</span>
-                </a>
-            </li>
-
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="">
-                    <i class="align-middle" data-feather="globe"></i> <span class="align-middle">Upazilas</span>
-                </a>
-            </li>
-
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="">
-                    <i class="align-middle" data-feather="globe"></i> <span class="align-middle">Zip Codes</span>
-                </a>
-            </li>
         </ul>
 
         <div class="sidebar-cta">

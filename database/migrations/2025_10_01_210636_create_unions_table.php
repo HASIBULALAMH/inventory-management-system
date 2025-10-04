@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('states', function (Blueprint $table) {
+        Schema::create('unions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('country_id')->constrained()->cascadeOnDelete();
             $table->string('name');
-            $table->string('code', 10)->unique();
-            $table->string('slug', 100)->unique();
+            $table->string('code');
+            $table->string('slug');
+            $table->string('thana_id');
+            $table->string('zipcode');
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('states');
+        Schema::dropIfExists('unions');
     }
 };
