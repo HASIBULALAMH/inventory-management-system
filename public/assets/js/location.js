@@ -8,6 +8,7 @@ class LocationSelector {
         this.unionId = config.unionId;
         this.zipcodeId = config.zipcodeId;
         this.baseUrl = config.baseUrl || '/admin/warehouse';
+        this.baseUrl = config.baseUrl || '/admin/branch';
         this.init();
     }
 

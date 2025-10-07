@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Branch\BranchController;
 use App\Http\Controllers\Warehouse\WarehouseController;
 use Illuminate\Support\Facades\Route;
 
@@ -102,5 +103,29 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
         Route::get('get-thanas/{cityId}', [WarehouseController::class, 'getThanas']);
         Route::get('get-unions/{thanaId}', [WarehouseController::class, 'getUnions']);
         Route::get('get-zipcode/{unionId}', [WarehouseController::class, 'getZipcode']);
+    });
+
+
+
+    // Branch 
+    Route::group([
+        'prefix' => 'branch',
+        'as' => 'branch.'
+    ], function () {
+        
+        Route::get('branch/list', [BranchController::class, 'list'])->name('list');
+        Route::get('branch/create', [BranchController::class, 'create'])->name('create');
+        Route::post('branch/store', [BranchController::class, 'store'])->name('store');
+        Route::get('branch/edit/{id}',[BranchController::class,'edit'])->name('edit');
+        Route::put('branch/update/{id}', [BranchController::class, 'update'])->name('update');
+        Route::delete('branch/delete/{id}', [BranchController::class, 'delete'])->name('delete');
+
+
+        // AJAX 
+        Route::get('get-states/{countryId}', [BranchController::class, 'getStates']);
+        Route::get('get-cities/{stateId}', [BranchController::class, 'getCities']);
+        Route::get('get-thanas/{cityId}', [BranchController::class, 'getThanas']);
+        Route::get('get-unions/{thanaId}', [BranchController::class, 'getUnions']);
+        Route::get('get-zipcode/{unionId}', [BranchController::class, 'getZipcode']);
     });
 });

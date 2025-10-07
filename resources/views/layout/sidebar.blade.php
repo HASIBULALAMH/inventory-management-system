@@ -62,8 +62,8 @@
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="">
-                    <i class="align-middle" data-feather="package"></i> <span class="align-middle">Products</span>
+                <a class="sidebar-link" href="{{route('admin.branch.list')}}">
+                    <i class="align-middle" data-feather="package"></i> <span class="align-middle">Branch</span>
                 </a>
             </li>
 
