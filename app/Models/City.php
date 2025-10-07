@@ -14,14 +14,13 @@ class City extends Model
         'state_id',
     ];
 
-    public function country()
-    {
-        return $this->belongsTo(Country::class);
-    }
-
     public function state()
     {
         return $this->belongsTo(State::class);
+    }
+    public function thanas()
+    {
+        return $this->hasMany(Thana::class);
     }
     public function location()
     {

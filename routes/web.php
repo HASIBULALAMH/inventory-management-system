@@ -12,9 +12,7 @@ use App\Http\Controllers\Warehouse\WarehouseController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/', function () {
-    return view('admin.master');
-});
+
 
 //login 
 Route::get('login', [LoginController::class, 'view'])->name('login');
@@ -90,16 +88,16 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
         'prefix' => 'warehouse',
         'as' => 'warehouse.'
     ], function () {
-        Route::get('warehouses', [WarehouseController::class, 'list'])->name('list');
-        Route::get('warehouses/create', [WarehouseController::class, 'create'])->name('create');
-        Route::post('warehouses/store', [WarehouseController::class, 'store'])->name('store');
-        Route::get('warehouses/edit/{id}', [WarehouseController::class, 'edit'])->name('edit');
-        Route::put('warehouses/update/{id}', [WarehouseController::class, 'update'])->name('update');
-        Route::delete('warehouses/delete/{id}', [WarehouseController::class, 'delete'])->name('delete');
-            //ajex
-            Route::get('get-states/{country}', [WarehouseController::class, 'getStates'])->name('get-states');
-            Route::get('get-cities/{state}', [WarehouseController::class, 'getCities'])->name('get-cities');
-            Route::get('get-zipcode/{city}', [WarehouseController::class, 'getZipcode'])->name('get-zipcode');
-            Route::get('get-manager/{user}', [WarehouseController::class, 'getManager'])->name('get-manager');
-         });
+        // Remove 'warehouses/' from these routes since prefix already adds 'warehouse/'
+        Route::get('list', [WarehouseController::class, 'list'])->name('list');
+        Route::get('create', [WarehouseController::class, 'create'])->name('create');
+        Route::post('store', [WarehouseController::class, 'store'])->name('store');
+        
+        // AJAX routes for location
+        Route::get('get-states/{countryId}', [WarehouseController::class, 'getStates']);
+        Route::get('get-cities/{stateId}', [WarehouseController::class, 'getCities']);
+        Route::get('get-thanas/{cityId}', [WarehouseController::class, 'getThanas']);
+        Route::get('get-unions/{thanaId}', [WarehouseController::class, 'getUnions']);
+        Route::get('get-zipcode/{unionId}', [WarehouseController::class, 'getZipcode']);
     });
+});

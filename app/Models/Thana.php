@@ -17,7 +17,7 @@ class Thana extends Model
     {
         return $this->belongsTo(City::class);
     }
-    public function union()
+    public function unions()
     {
         return $this->hasMany(Union::class);
         

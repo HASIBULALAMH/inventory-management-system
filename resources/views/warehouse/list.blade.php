@@ -53,8 +53,6 @@
               <th>Warehouse Name</th>
               <th>Code</th>
               <th>Location</th>
-              <th>Contact</th>
-              <th>Supervisor</th>
               <th>Capacity</th>
               <th>Status</th>
               <th class="text-end">Actions</th>
@@ -67,17 +65,14 @@
                 <td>{{ $warehouse->name }}</td>
                 <td><span class="badge bg-dark">{{ $warehouse->code }}</span></td>
                 <td>
-                  {{ optional($warehouse->city)->name }},
-                  {{ optional($warehouse->state)->name }},
-                  {{ optional($warehouse->country)->name }}
+                    <small class="text-muted">
+                       {{ $warehouse->location->country->name ?? '-' }},
+                       {{ $warehouse->location->state->name ?? '-' }},
+                       {{ $warehouse->location->city->name ?? '-' }},
+                       {{ $warehouse->location->thana->name ?? '-' }},
+                       {{ $warehouse->location->union->name ?? '-' }}
+                 </small>
                 </td>
-                <td>
-                  <small>
-                    <i class="fa-solid fa-user me-1"></i>{{ $warehouse->contact_person }}<br>
-                    <i class="fa-solid fa-phone me-1"></i>{{ $warehouse->phone }}
-                  </small>
-                </td>
-                <td>{{ optional($warehouse->supervisor)->full_name ?? '-' }}</td>
                 <td>{{ $warehouse->capacity ?? '-' }}</td>
                 <td>
                   @if($warehouse->status == 'active')

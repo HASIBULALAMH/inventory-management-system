@@ -1,20 +1,23 @@
-  // Manager -> details
-  document.getElementById("manager").addEventListener("change", function() {
-    let managerId = this.value;
-    if(managerId) {
-        fetch(`/admin/warehouse/get-manager/${managerId}`)
-        .then(res => res.json())
-        .then(data => {
-            document.getElementById("manager_email").value = data.email || '';
-            document.getElementById("manager_phone").value = data.phone || '';
+document.addEventListener("DOMContentLoaded",function(){
+    const manager=document.getElementById("manager");
+    if(!manager) return;
+    const emailField=document.getElementById("manager_email");
+    const phoneField=document.getElementById("manager_phone");
+    const csrf=document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    const baseUrl=window.location.origin+'/admin/warehouse';
+
+    manager.addEventListener("change",function(){
+        const id=this.value;
+        if(!id){ emailField.value=''; phoneField.value=''; return; }
+        emailField.value='Loading...'; phoneField.value='Loading...';
+        fetch(`${baseUrl}/get-manager/${id}`,{
+            headers:{'X-CSRF-TOKEN':csrf,'Accept':'application/json'},
+            credentials:'same-origin'
         })
-        .catch(err => {
-            console.error('Error fetching manager details:', err);
-            document.getElementById("manager_email").value = '';
-            document.getElementById("manager_phone").value = '';
-        });
-    } else {
-        document.getElementById("manager_email").value = '';
-        document.getElementById("manager_phone").value = '';
-    }
+        .then(r=>r.json())
+        .then(data=>{ emailField.value=data.email||''; phoneField.value=data.phone||''; })
+        .catch(err=>{ console.error(err); emailField.value='Error'; phoneField.value='Error'; });
+    });
 });
+
+

@@ -46,7 +46,7 @@ class AdminSeeder extends Seeder
 
         // Create or get the superadmin user
         $superadmin = User::firstOrCreate(
-            ['email' => 'superadmin@gmail.com'],
+            ['email' => 'superadmin@storify.com'],
             [
                 'name' => 'Super Admin',
                 'password' => bcrypt('12345678'),

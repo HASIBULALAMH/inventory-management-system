@@ -105,16 +105,15 @@ class LocationController extends Controller
                             [
                                 'name' => $unionName, 
                                 'thana_id' => $thana->id,
-                                'zipcode' => $zipcode // Add zipcode to the search criteria
-                              ],
-                                  [
-                                    'code' => strtoupper(substr($unionName, 0, 3)) . '-' . rand(100,999),
-                                     'slug' => Str::slug($unionName) . '-' . uniqid(),
-                                   'zipcode' => $zipcode,
-                                     ]
-
-                            );
-
+                                'zipcode' => $zipcode
+                            ],
+                            [
+                                'code' => strtoupper(substr($unionName, 0, 3)) . '-' . rand(100,999),
+                                'slug' => Str::slug($unionName) . '-' . uniqid(),
+                                'zipcode' => $zipcode,
+                            ]
+                        );
+    
                         // === Location Save ===
                         $location = Location::firstOrCreate(
                             [
