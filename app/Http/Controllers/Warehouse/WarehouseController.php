@@ -10,7 +10,6 @@ use App\Models\City;
 use App\Models\Location;
 use App\Models\Thana;
 use App\Models\Union;
-use App\Models\User;
 use App\Models\Warehouse;
 use Illuminate\Support\Facades\Validator;
 
@@ -29,8 +28,7 @@ class WarehouseController extends Controller
     //create
     public function create() {
         $countries = Country::all();
-        $users = User::all();
-        return view('warehouse.create', compact('countries', 'users'));
+        return view('warehouse.create', compact('countries'));
     }
 
     //store 
@@ -52,8 +50,8 @@ class WarehouseController extends Controller
         return redirect()->back()->withErrors($validation)->withInput();
       }
 
- // 1️⃣ Try to find an existing location
- $location = Location::where([
+ //  find an  location id 
+  $location = Location::where([
     'country_id' => $request->country_id,
     'state_id'   => $request->state_id,
     'city_id'    => $request->city_id,
@@ -88,6 +86,78 @@ if ($location) {
       ]);
         return redirect()->route('admin.warehouse.list')->with('success','Warehouse created');
     }
+
+    //edit
+    public function edit($id){
+        $warehouse = Warehouse::find($id);
+        $countries = Country::all();
+        return view('warehouse.edit', compact('warehouse', 'countries'));
+    }
+
+
+    //update
+    public function update(Request $request, $id){
+        $validation= Validator::make($request->all(), [
+            'name' => 'required|max:255',
+            'code' => 'required|max:255',
+            'slug' => 'required|max:255',
+            'country_id' => 'required',
+            'state_id' => 'required',
+            'city_id' => 'required',
+            'thana_id' => 'required',
+            'union_id' => 'required',
+            'capacity' => 'required',
+            'starting_date' => 'required',
+            'status' => 'required|in:active,inactive',
+          ]);
+          if ($validation->fails()) {
+            return redirect()->back()->withErrors($validation)->withInput();
+          }
+
+  //  find an  location id 
+   $location = Location::where([
+     'country_id' => $request->country_id,
+     'state_id'   => $request->state_id,
+     'city_id'    => $request->city_id,
+     'thana_id'   => $request->thana_id,
+     'union_id'   => $request->union_id,
+   ])->first();
+
+   if ($location) {
+       $request->merge(['location_id' => $location->id]);
+   } else {
+       $location = Location::create([
+           'country_id' => $request->country_id,
+           'state_id'   => $request->state_id,
+           'city_id'    => $request->city_id,
+           'thana_id'   => $request->thana_id,
+           'union_id'   => $request->union_id,
+       ]);
+       $request->merge(['location_id' => $location->id]);
+   }
+
+
+     //queary
+     $warehouse = Warehouse::find($id);
+     $warehouse->update([
+       'name' => $request->name,
+       'code' => $request->code,
+       'slug' => $request->slug,
+       'location_id' => $location->id,
+       'capacity' => $request->capacity,
+       'starting_date' => $request->starting_date,
+       'status' => $request->status,
+     ]);
+       return redirect()->route('admin.warehouse.list')->with('success','Warehouse updated');
+    }
+
+    //delete
+    public function delete($id){
+        $warehouse = Warehouse::find($id);
+        $warehouse->delete();
+        return redirect()->route('admin.warehouse.list')->with('success','Warehouse deleted');
+    }
+
 
     // AJAX routes
     public function getStates($countryId){

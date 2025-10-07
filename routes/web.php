@@ -77,10 +77,10 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
         'prefix' => 'locations',
         'as' => 'locations.'
     ], function () { 
-        Route::get('list', [LocationController::class, 'list'])->name('list');
-        Route::get('create', [LocationController::class, 'create'])->name('create');
-        Route::post('store', [LocationController::class, 'store'])->name('store');
-        Route::post('change-status', [LocationController::class, 'changeStatus'])->name('changeStatus');
+        Route::get('location/list', [LocationController::class, 'list'])->name('list');
+        Route::get('location/create', [LocationController::class, 'create'])->name('create');
+        Route::post('location/store', [LocationController::class, 'store'])->name('store');
+        Route::post('location/change-status', [LocationController::class, 'changeStatus'])->name('changeStatus');
     });
    
     // Warehouse routes under admin
@@ -88,10 +88,13 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
         'prefix' => 'warehouse',
         'as' => 'warehouse.'
     ], function () {
-        // Remove 'warehouses/' from these routes since prefix already adds 'warehouse/'
-        Route::get('list', [WarehouseController::class, 'list'])->name('list');
-        Route::get('create', [WarehouseController::class, 'create'])->name('create');
-        Route::post('store', [WarehouseController::class, 'store'])->name('store');
+        
+        Route::get('warehouse/list', [WarehouseController::class, 'list'])->name('list');
+        Route::get('warehouse/create', [WarehouseController::class, 'create'])->name('create');
+        Route::post('warehouse/store', [WarehouseController::class, 'store'])->name('store');
+        Route::get('warehouse/edit/{id}',[WarehouseController::class,'edit'])->name('edit');
+        Route::put('warehouse/update/{id}', [WarehouseController::class, 'update'])->name('update');
+        Route::delete('warehouse/delete/{id}', [WarehouseController::class, 'delete'])->name('delete');
         
         // AJAX routes for location
         Route::get('get-states/{countryId}', [WarehouseController::class, 'getStates']);

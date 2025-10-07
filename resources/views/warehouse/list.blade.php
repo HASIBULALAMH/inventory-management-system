@@ -84,11 +84,11 @@
                   @endif
                 </td>
                 <td class="text-end action-btns">
-                  <a href="" 
+                  <a href=" {{ route('admin.warehouse.edit', $warehouse->id) }}" 
                      class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" title="Edit">
                     <i class="fa-regular fa-pen-to-square"></i>
                   </a>
-                  <form action="" 
+                  <form action=" {{ route('admin.warehouse.delete', $warehouse->id) }}" 
                         method="POST" class="d-inline">
                     @csrf
                     @method('DELETE')
