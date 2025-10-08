@@ -12,7 +12,10 @@ class Branch extends Model
         'code',
         'slug',
         'status',
+        'capacity',
+        'starting_date',
     ];
+    
     //Relationship
     public function location()
     {

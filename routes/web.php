@@ -127,5 +127,6 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
         Route::get('get-thanas/{cityId}', [BranchController::class, 'getThanas']);
         Route::get('get-unions/{thanaId}', [BranchController::class, 'getUnions']);
         Route::get('get-zipcode/{unionId}', [BranchController::class, 'getZipcode']);
+        Route::get('get-managers/{userId}', [BranchController::class, 'getManagers']);
     });
 });

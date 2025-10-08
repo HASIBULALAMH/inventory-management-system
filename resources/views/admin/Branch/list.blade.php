@@ -80,15 +80,15 @@
                     <span class="badge bg-success">Active</span>
                   @else
                     <span class="status-dot dot-inactive"></span>
-                    <span class="badge bg-secondary">Inactive</span>
+                    <span class="badge bg-danger">Inactive</span>
                   @endif
                 </td>
                 <td class="text-end action-btns">
-                  <a href=" " 
+                  <a href="{{ route('admin.branch.edit', $branch->id) }}" 
                      class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" title="Edit">
                     <i class="fa-regular fa-pen-to-square"></i>
                   </a>
-                  <form action=" " 
+                  <form action=" {{ route('admin.branch.delete', $branch->id) }}" 
                         method="POST" class="d-inline">
                     @csrf
                     @method('DELETE')
@@ -112,7 +112,7 @@
       <!-- Pagination -->
       <div class="p-3 d-flex justify-content-between align-items-center">
         <small class="text-muted">
-          Showing {{ $branches->firstItem() ?? 0 }} - {{ $branches->lastItem() ?? 0 }} of {{ $branches->total() }} branches
+          Showing {{ $branches->firstItem() ?? 0 }} - {{ $branches->lastItem() ?? 0 }} of {{ $branches->total() }} branch   es
         </small>
         <div>
           {{ $branches->links('pagination::bootstrap-5') }}

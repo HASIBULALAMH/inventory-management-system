@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('code');
             $table->string('slug');
             $table->string('status');
+            $table->string('capacity');
+            $table->string('starting_date');
             $table->timestamps();
         });
     }

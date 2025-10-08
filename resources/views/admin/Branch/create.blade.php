@@ -13,11 +13,11 @@
     </div>
 
     <div class="card-body">
-      <form action="{{route('admin.branch.store')}}" method="POST" id="branchForm">
+      <form action="{{ route('admin.branch.store') }}" method="POST" id="branchForm">
         @csrf
         <div class="row g-4">
 
-          <!-- Warehouse Info -->
+          <!-- Branch Information -->
           <h6 class="fw-bold text-primary mb-2">🏢 Branch Information</h6>
           <hr class="mt-0 mb-3">
 
@@ -36,7 +36,8 @@
             <input type="text" id="branch_slug" name="slug" class="form-control" readonly>
           </div>
 
-          <!-- Location Section -->
+ 
+          <!-- Location Details -->
           <h6 class="fw-bold text-primary mt-4 mb-2">📍 Location Details</h6>
           <hr class="mt-0 mb-3">
 
@@ -75,7 +76,7 @@
             <input type="text" id="zipcode" name="zipcode" class="form-control" readonly>
           </div>
 
-          <!-- Capacity & Dates -->
+          <!-- Operational Details -->
           <h6 class="fw-bold text-primary mt-4 mb-2">⚙️ Operational Details</h6>
           <hr class="mt-0 mb-3">
 
@@ -105,7 +106,7 @@
             <i class="fas fa-undo"></i> Reset
           </button>
           <button type="submit" class="btn btn-success">
-            <i class="fas fa-save me-1"></i> Save Warehouse
+            <i class="fas fa-save me-1"></i> Save Branch
           </button>
         </div>
       </form>
@@ -115,11 +116,11 @@
 
 <!-- JS -->
 <script src="{{ asset('assets/js/location.js') }}"></script>
-<!-- location-->
+
 <script>
 document.addEventListener('DOMContentLoaded', function () {
 
-  // Initialize dynamic location loader
+  // Initialize location loader
   initLocationSelector({
     countryId: 'country',
     stateId: 'state',
@@ -130,12 +131,12 @@ document.addEventListener('DOMContentLoaded', function () {
     baseUrl: '{{ url("admin/branch") }}'
   });
 
-  // Auto generate Code & Slug from Name
-  const nameInput = document.getElementById('warehouse_name');
+  // Auto generate Branch Code & Slug
+  const nameInput = document.getElementById('branch_name');
   nameInput.addEventListener('input', function () {
     const name = nameInput.value.trim();
-    document.getElementById('warehouse_code').value = name.toUpperCase().replace(/\s+/g, '_').substring(0, 10);
-    document.getElementById('warehouse_slug').value = name.toLowerCase().replace(/\s+/g, '-');
+    document.getElementById('branch_code').value = name.toUpperCase().replace(/\s+/g, '_').substring(0, 10);
+    document.getElementById('branch_slug').value = name.toLowerCase().replace(/\s+/g, '-');
   });
 
 });
@@ -149,6 +150,11 @@ document.addEventListener('DOMContentLoaded', function () {
   }
   .bg-gradient-primary {
     background: linear-gradient(135deg, #20c997, #6f42c1);
+  }
+  h6 {
+    display: flex;
+    align-items: center;
+    gap: 6px;
   }
 </style>
 @endsection
