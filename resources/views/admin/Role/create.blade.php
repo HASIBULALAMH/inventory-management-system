@@ -53,6 +53,16 @@
   <input type="text" class="form-control iconpicker" id="icon_class" name="icon_class" placeholder="Select icon">
 </div>
 
+                  <!--perent id-->
+   <div class="col-md-6">
+    <label class="form-label">Parent Role</label>
+      <select name="parent_id" class="form-select">
+        <option value="">— None —</option>
+          @foreach($roles as $role)
+           <option value="{{ $role->id }}">{{ $role->name }}</option>
+             @endforeach
+              </select>
+                </div>
 
         <!--role status-->
         <div class="mb-3">
@@ -92,28 +102,73 @@ $(document).ready(function() {
         }
     });
 
-    // Role name -> icon mapping
-    const roleIcons = {
-        'Super Admin': 'fa-solid fa-crown',
-        'Admin': 'fa-solid fa-user-shield',
-        'Warehouse Manager': 'fa-solid fa-warehouse',
-        'Inventory Officer': 'fa-solid fa-boxes-stacked',
-        'Sales Manager': 'fa-solid fa-chart-line',
-        'Sales Executive': 'fa-solid fa-user-tie',
-        'Accounts Manager': 'fa-solid fa-calculator',
-        'Accountant': 'fa-solid fa-file-invoice-dollar',
-        'HR Manager': 'fa-solid fa-people-group',
-        'HR Executive': 'fa-solid fa-user-group',
-        'IT Manager': 'fa-solid fa-laptop-code',
-        'IT Support': 'fa-solid fa-headset'
-    };
+    // Role name -> icon mapping with more comprehensive icon options
+    const roleIcons = [
+        { pattern: /super\s*admin/i, icon: 'fa-solid fa-crown' },
+        { pattern: /admin/i, icon: 'fa-solid fa-user-shield' },
+        { pattern: /warehouse/i, icon: 'fa-solid fa-warehouse' },
+        { pattern: /inventory/i, icon: 'fa-solid fa-boxes-stacked' },
+        { pattern: /sales\s*manager/i, icon: 'fa-solid fa-chart-line' },
+        { pattern: /sales\s*(executive|rep|representative)/i, icon: 'fa-solid fa-user-tie' },
+        { pattern: /account(s|ing)?\s*manager/i, icon: 'fa-solid fa-calculator' },
+        { pattern: /accountant/i, icon: 'fa-solid fa-file-invoice-dollar' },
+        { pattern: /hr\s*manager|human\s*resource\s*manager/i, icon: 'fa-solid fa-people-group' },
+        { pattern: /hr\s*executive|human\s*resource/i, icon: 'fa-solid fa-user-group' },
+        { pattern: /it\s*manager/i, icon: 'fa-solid fa-laptop-code' },
+        { pattern: /it\s*support|technician/i, icon: 'fa-solid fa-headset' },
+        { pattern: /stock\s*(keeper|manager|clerk)/i, icon: 'fa-solid fa-boxes-stacked' },
+        { pattern: /customer\s*service|support/i, icon: 'fa-solid fa-headset' },
+        { pattern: /manager/i, icon: 'fa-solid fa-user-tie' },
+        { pattern: /director/i, icon: 'fa-solid fa-user-tie' },
+        { pattern: /executive/i, icon: 'fa-solid fa-user-tie' },
+        { pattern: /officer/i, icon: 'fa-solid fa-user' },
+        { pattern: /assistant/i, icon: 'fa-solid fa-user' },
+        { pattern: /staff/i, icon: 'fa-solid fa-user' }
+    ];
 
-    // When typing role name → auto icon fill
+    // Function to find matching icon for role name
+    function findMatchingIcon(roleName) {
+        if (!roleName) return null;
+        
+        // Convert to lowercase for case-insensitive matching
+        const searchName = roleName.toLowerCase().trim();
+        
+        // First try exact matches
+        const exactMatch = roleIcons.find(item => 
+            searchName === item.pattern.source.replace(/[^\w\s]/g, '').toLowerCase()
+        );
+        if (exactMatch) return exactMatch.icon;
+        
+        // Then try pattern matching
+        const patternMatch = roleIcons.find(item => item.pattern.test(searchName));
+        if (patternMatch) return patternMatch.icon;
+        
+        // Default icon if no match found
+        return 'fa-solid fa-user';
+    }
+
+    // When typing role name → auto icon fill with debounce
+    let typingTimer;
     $('#name').on('input', function() {
-        const roleName = $(this).val().trim();
-        if (roleIcons[roleName]) {
-            $('#icon_class').val(roleIcons[roleName]).trigger('change');
-            $('.iconpicker').iconpicker('setIcon', roleIcons[roleName]);
+        clearTimeout(typingTimer);
+        const roleName = $(this).val();
+        
+        typingTimer = setTimeout(() => {
+            const icon = findMatchingIcon(roleName);
+            if (icon) {
+                $('#icon_class').val(icon).trigger('change');
+                $('.iconpicker').iconpicker('setIcon', icon);
+            }
+        }, 300); // 300ms debounce
+    });
+    
+    // Also trigger icon update when the field loses focus
+    $('#name').on('blur', function() {
+        const roleName = $(this).val();
+        const icon = findMatchingIcon(roleName);
+        if (icon && !$('#icon_class').val()) {
+            $('#icon_class').val(icon).trigger('change');
+            $('.iconpicker').iconpicker('setIcon', icon);
         }
     });
 });

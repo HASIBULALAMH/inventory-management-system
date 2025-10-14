@@ -57,6 +57,7 @@
             <tr>
               <th style="width: 80px;">ID</th>
               <th>Role Name</th>
+              <th>Parent Role</th>
               <th>ROles icon</th>
               <th style="width: 160px;">Status</th>
               <th style="width: 160px;" class="text-end">Actions</th>
@@ -67,6 +68,8 @@
             <tr>
               <td>{{$role->id}}</td>
               <td>{{$role->name}}</td>
+          <td>{{ $role->parent && $role->parent->name ? $role->parent->name : 'No Parent' }}</td>
+
               <td><i class="{{ $role->icon_class }}"></i></td>
 
 

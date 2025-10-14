@@ -4,22 +4,25 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-use Spatie\Permission\Models\Role; 
+use App\Models\Role;
 use Spatie\Permission\Models\Permission; // Make sure this is imported
 
 class RoleController extends Controller
 {
     public function list()
     {
-        $roles = Role::paginate(10);
+      $roles = Role::with('parent')->paginate(10);
+
         return view('admin.role.list', compact('roles'));
     }
 
     public function create()
     {
-        $role = new Role();
-        return view('admin.role.create', compact('role'));
+           $role = new Role();
+     $roles = Role::where('status', 'active')->get();
+    return view('admin.role.create', compact('role', 'roles'));
     }
 
     //store method
@@ -29,6 +32,7 @@ class RoleController extends Controller
         $validate = Validator::make($request->all(), [
             'name' => 'required|max:255|unique:roles,name',
            'icon_class' => 'required|string|starts_with:fa-',
+         'parent_id' => 'nullable|exists:roles,id',
             'status' => 'required|in:active,inactive',
         ]);
 
@@ -40,7 +44,7 @@ class RoleController extends Controller
       
             
         //auto genarate dashboard_route
-        $dashboardRoute = strtolower($request->name) . '.dashboard';    
+       $dashboardRoute = 'dashboard.' . strtolower(str_replace(' ', '_', $request->name));
 
 
 
@@ -48,6 +52,7 @@ class RoleController extends Controller
         Role::create([
             'name' => $request->name,
             'icon_class' => $request->icon_class,
+            'parent_id' => $request->parent_id?:null,
             'status' => $request->status,
             'guard_name' => 'web', 
             'dashboard_route' => $dashboardRoute,
@@ -65,6 +70,7 @@ class RoleController extends Controller
         $validation = Validator::make($request->all(), [
             'name' => 'required|max:255|unique:roles,name,' . $id,
            'icon_class' => 'required|string|starts_with:fa-',
+           'parent_id' => 'nullable|exists:roles,id',
             'status' => 'required|in:active,inactive',
         ]);
 
@@ -79,6 +85,7 @@ class RoleController extends Controller
             $role->update([
                 'name' => $request->name,
                 'icon_class' => $request->icon_class,
+                'parent_id' => $request->parent_id?:null,
                 'status' => $request->status,
                 'guard_name' => 'web', 
             ]);
@@ -98,23 +105,41 @@ class RoleController extends Controller
     public function edit($id)
     {
         $role = Role::find($id);
-        return view('admin.role.edit', compact('role'));
+       $roles = Role::where('status', 'active')->get();
+        return view('admin.role.edit', compact('role', 'roles'));
     }
 
-    //delete
+    // Delete a role
     public function delete($id)
     {
-        $role = Role::find($id);
-        if ($role) {
-            $role->delete();
-         }
-         return redirect()->route('admin.roles.list')->with('success', 'Role deleted successfully');
+        $role = Role::findOrFail($id);
+        
+        // Check if role has any children using direct query
+        $hasChildren = Role::where('parent_id', $role->id)->exists();
+        if ($hasChildren) {
+            return redirect()
+                ->back()
+                ->with('error', 'Cannot delete this role because it has child roles. Please delete the child roles first.');
+        }
+        
+        // Check if role is assigned to any users using direct query
+        $hasUsers = DB::table('model_has_roles')
+            ->where('role_id', $role->id)
+            ->exists();
+            
+        if ($hasUsers) {
+            return redirect()
+                ->back()
+                ->with('error', 'Cannot delete this role because it is assigned to one or more users.');
+        }
+        
+        // Delete the role
+        $role->delete();
+        
+        return redirect()
+            ->route('admin.roles.list')
+            ->with('success', 'Role deleted successfully');
     }
-
-
-
-
-
 
 
 

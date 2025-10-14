@@ -10,22 +10,37 @@ class Role extends SpatieRole
         'name',
         'guard_name',
         'icon_class',
+        'parent_id',
         'status',
         'dashboard_route',
     ];
 
-    // User relation (many-to-many)
-    public function user()
+    /**
+     * Get the parent role
+     */
+    public function parent()
+    {
+        return $this->belongsTo(Role::class, 'parent_id');
+    }
+
+    /**
+     * Get the child roles
+     */
+    public function children()
+    {
+        return $this->hasMany(Role::class, 'parent_id');
+    }
+
+    //  Custom relation name to avoid conflict
+    public function assignedUsers()
     {
         return $this->belongsToMany(User::class, 'model_has_roles', 'role_id', 'model_id');
     }
 
-
-
-
-    //get icon html
-    public function getIconHtmlAttribute() {
-        return $this->icon_class ? '<i class="'.$this->icon_class.'"></i>' : '';
-    }
-    
-}
+    //  Icon HTML Accessor
+    public function getIconHtmlAttribute()
+    {
+        return $this->icon_class 
+            ? '<i class="' . e($this->icon_class) . '"></i>' 
+            : '';
+    }}

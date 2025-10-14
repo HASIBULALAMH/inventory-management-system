@@ -49,6 +49,19 @@
           <label for="name" class="form-label">Role Name</label>
           <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $role->name) }}" required>
         </div>
+
+        <div class="form-group mb-3">
+    <label for="parent_id">Parent Role</label>
+    <select name="parent_id" id="parent_id" class="form-control">
+        <option value="">-- No Parent (Top Level Role) --</option>
+        @foreach ($roles as $role)
+            <option value="{{ $role->id }}" {{ old('parent_id', $role->parent_id ?? '') == $role->id ? 'selected' : '' }}>
+                {{ $role->name }}
+            </option>
+             @endforeach
+         </select>
+        </div>
+
            <!--role icon-->
         <div class="mb-3">
           <label for="icon_class" class="form-label">Role Icon</label>
