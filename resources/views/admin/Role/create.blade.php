@@ -43,15 +43,18 @@
     <div class="card-body">
       <form action="{{ route('admin.roles.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
-
         <div class="mb-3">
-          <label for="name" class="form-label">Role Name</label>
-          <input type="text" class="form-control" id="name" name="name" placeholder="Enter role name" required>
-        </div>
-       <div>
-        <label for="icon" class="form-label">Role Icon</label>
-        <input type="file" class="form-control" id="icon" name="icon" placeholder="" required>
-       </div>
+  <label for="name" class="form-label">Role Name</label>
+  <input type="text" class="form-control" id="name" name="name" placeholder="Enter role name">
+</div>
+
+<div class="mb-3">
+  <label for="icon_class" class="form-label">Role Icon</label>
+  <input type="text" class="form-control iconpicker" id="icon_class" name="icon_class" placeholder="Select icon">
+</div>
+
+
+        <!--role status-->
         <div class="mb-3">
           <label for="status" class="form-label">Status</label>
           <select class="form-select" id="status" name="status" required>
@@ -66,8 +69,54 @@
     </div>
   </div>
 </div>
+<!-- FontAwesome CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Icon Picker CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fontawesome-iconpicker/3.2.0/css/fontawesome-iconpicker.min.css">
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<!-- Icon Picker JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fontawesome-iconpicker/3.2.0/js/fontawesome-iconpicker.min.js"></script>
+<script>
+$(document).ready(function() {
+    // Initialize the icon picker
+    $('.iconpicker').iconpicker({
+        placement: 'bottom',
+        hideOnSelect: true,
+        inputSearch: true,
+        templates: {
+            searchInput: '<input type="search" class="form-control iconpicker-search" placeholder="Search icons">'
+        }
+    });
+
+    // Role name -> icon mapping
+    const roleIcons = {
+        'Super Admin': 'fa-solid fa-crown',
+        'Admin': 'fa-solid fa-user-shield',
+        'Warehouse Manager': 'fa-solid fa-warehouse',
+        'Inventory Officer': 'fa-solid fa-boxes-stacked',
+        'Sales Manager': 'fa-solid fa-chart-line',
+        'Sales Executive': 'fa-solid fa-user-tie',
+        'Accounts Manager': 'fa-solid fa-calculator',
+        'Accountant': 'fa-solid fa-file-invoice-dollar',
+        'HR Manager': 'fa-solid fa-people-group',
+        'HR Executive': 'fa-solid fa-user-group',
+        'IT Manager': 'fa-solid fa-laptop-code',
+        'IT Support': 'fa-solid fa-headset'
+    };
+
+    // When typing role name → auto icon fill
+    $('#name').on('input', function() {
+        const roleName = $(this).val().trim();
+        if (roleIcons[roleName]) {
+            $('#icon_class').val(roleIcons[roleName]).trigger('change');
+            $('.iconpicker').iconpicker('setIcon', roleIcons[roleName]);
+        }
+    });
+});
+</script>
 
 @endsection

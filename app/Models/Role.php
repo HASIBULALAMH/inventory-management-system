@@ -9,7 +9,7 @@ class Role extends SpatieRole
     protected $fillable = [
         'name',
         'guard_name',
-        'icon',
+        'icon_class',
         'status',
         'dashboard_route',
     ];
@@ -19,4 +19,13 @@ class Role extends SpatieRole
     {
         return $this->belongsToMany(User::class, 'model_has_roles', 'role_id', 'model_id');
     }
+
+
+
+
+    //get icon html
+    public function getIconHtmlAttribute() {
+        return $this->icon_class ? '<i class="'.$this->icon_class.'"></i>' : '';
+    }
+    
 }

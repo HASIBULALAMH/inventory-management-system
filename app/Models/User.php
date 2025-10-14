@@ -10,12 +10,7 @@ use Spatie\Permission\Traits\HasRoles;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\Models\Warehouse;
-use App\Models\Country;
-use App\Models\State;
-use App\Models\City;
-use App\Models\Thana;
-use App\Models\Union;
-use App\Models\ward;
+
 
 class User extends Authenticatable
 {
@@ -28,18 +23,15 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-       'name',
+       'full_name',
        'email',
        'password',
        'phone',
-       'gender',
-       'dob',
-       'present_address',
-       'permanent_address',
+        'gender',
        'employee_id',
        'department_id',
        'designation_id',
-       'role',
+       'role_id',
        'join_date',
        'profile_photo',
        'status',
@@ -60,13 +52,11 @@ class User extends Authenticatable
      *
      * @return array<string, string>
      */
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
-    }
+   protected $casts = [
+    'email_verified_at' => 'datetime',
+    'password' => 'hashed',
+];
+
 
 
 
@@ -84,11 +74,15 @@ class User extends Authenticatable
 
     public function warehouses()
     {
-        return $this->belongsToMany(Warehouse::class, 'user_warehouses', 'user_id', 'warehouse_id');
+        return $this->belongsToMany(Warehouse::class);
     }
-    public function location    (){
-    return $this->belongsTo(Location::class);
+
+    public function role(){
+        return $this->belongsTo(Role::class);
     }
+
+   
+
     
    
 }

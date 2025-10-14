@@ -76,7 +76,7 @@
               </td>
               <td class="text-end action-btns">
               <div class="d-flex gap-2 justify-content-end">
-                  <a href="{{ route('admin.designations.edit', $designation->id) }}" class="btn btn-outline-primary btn-sm rounded-circle" data-bs-toggle="tooltip" data-bs-title="Edit" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;">
+                  <a href=" {{ route('admin.designations.edit', $designation->id) }}" class="btn btn-outline-primary btn-sm rounded-circle" data-bs-toggle="tooltip" data-bs-title="Edit" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;">
                     <i class="fa-regular fa-pen-to-square"></i>
                   </a>
                   <form action="{{ route('admin.designations.delete', $designation->id) }}" method="POST" class="d-inline">

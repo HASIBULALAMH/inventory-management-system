@@ -1,8 +1,7 @@
 <nav id="sidebar" class="sidebar js-sidebar">
     <div class="sidebar-content js-simplebar">
         <a class="sidebar-brand" href="index.html">
-            <span class="align-middle">AdminKit</span>
-        </a>
+          </a>
 
         <ul class="sidebar-nav">
             <li class="sidebar-header">
@@ -17,37 +16,37 @@
 
             <li class="sidebar-item">
                 <a class="sidebar-link" href="{{route('admin.roles.list')}}">
-                    <i class="align-middle" data-feather="user"></i> <span class="align-middle">Roles</span>
+                    <i class="align-middle" data-feather="user-shield"></i> <span class="align-middle">Roles</span>
                 </a>
             </li>
 
             <li class="sidebar-item">
                 <a class="sidebar-link" href="{{route('admin.permissions.list')}}">
-                    <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Permissions</span>
+                    <i class="align-middle" data-feather="key"></i> <span class="align-middle">Permissions</span>
                 </a>
             </li>
 
             <li class="sidebar-item">
                 <a class="sidebar-link" href="{{route('admin.departments.list')}}">
-                    <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle"> Departments</span>
+                    <i class="align-middle" data-feather="users"></i> <span class="align-middle"> Departments</span>
                 </a>
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="{{route('admin.designations.list')}}">
-                    <i class="align-middle" data-feather="book"></i> <span class="align-middle">Designations</span>
+            <a class="sidebar-link" href="{{ route('admin.designations.list') }}">
+                    <i class="align-middle" data-feather="users"></i> <span class="align-middle">Designations</span>
                 </a>
             </li>
             <li class="sidebar-item">
                 <a class="sidebar-link" href="{{route('admin.locations.list')}}">
-                    <i class="align-middle" data-feather="book"></i> <span class="align-middle">Locations</span>
+                    <i class="align-middle" data-feather="map"></i> <span class="align-middle">Locations</span>
                 </a>
             </li>
 
             
             <li class="sidebar-item">
                 <a class="sidebar-link" href="{{route('admin.users.list')}}">
-                    <i class="align-middle" data-feather="book"></i> <span class="align-middle">Users</span>
+                    <i class="align-middle" data-feather="users"></i> <span class="align-middle">Users</span>
                 </a>
             </li>
 
@@ -57,13 +56,13 @@
 
             <li class="sidebar-item">
                 <a class="sidebar-link" href="{{ route('admin.warehouse.list') }}">
-                    <i class="align-middle" data-feather="square"></i> <span class="align-middle">Warehouses</span>
+                    <i class="align-middle" data-feather="warehouse"></i> <span class="align-middle">Warehouses</span>
                 </a>
             </li>
 
             <li class="sidebar-item">
                 <a class="sidebar-link" href="{{route('admin.branch.list')}}">
-                    <i class="align-middle" data-feather="package"></i> <span class="align-middle">Branch</span>
+                    <i class="align-middle" data-feather="building"></i> <span class="align-middle">Branch</span>
                 </a>
             </li>
 

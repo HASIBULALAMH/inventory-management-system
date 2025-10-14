@@ -1,55 +1,57 @@
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
-	<meta name="author" content="AdminKit">
-	<meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
-	<meta name="csrf-token" content="{{ csrf_token() }}">
-	
-	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link rel="shortcut icon" href="{{ asset('assets/img/icons/icon-48x48.png')}}" />
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
+  <meta name="author" content="AdminKit">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
 
-	<link rel="canonical" href="https://demo-basic.adminkit.io/" />
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link rel="shortcut icon" href="{{ asset('assets/img/icons/icon-48x48.png')}}" />
+  <link rel="canonical" href="https://demo-basic.adminkit.io/" />
+  <title>Inventory Management System</title>
 
-	<title>Inventory Management System</title>
+  <link href="{{ asset('assets/css/app.css') }}" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
-	<link href="{{ asset('assets/css/app.css') }}" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <!-- Bootstrap & FontAwesome CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
-<!-- Bootstrap & Icons CDN (place in <head>) -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-
+  <!-- FontAwesome Icon Picker CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/fontawesome-iconpicker/3.2.0/css/fontawesome-iconpicker.min.css" rel="stylesheet">
 </head>
 
 <body>
-	<div class="wrapper">
-		<!-- Sidebar -->
-		@include('layout.sidebar')
-		<!-- End Sidebar -->
+  <div class="wrapper">
+    @include('layout.sidebar')
+    <div class="main">
+      @include('layout.navbar')
+      <main class="content">
+        @yield('content')
+      </main>
+      @include('layout.footer')
+    </div>
+  </div>
 
-		<div class="main">
-			<!-- Top Navbar -->
-			@include('layout.navbar')
-			<!-- End Top Navbar -->
+  <!-- jQuery (required for icon picker) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 
-			<main class="content">
-				<!-- Main Content -->
-				@yield('content')
-				<!-- End Main Content -->
-			</main>
-			<!-- Footer -->
-			@include('layout.footer')
-			<!-- End Footer -->
-		</div>
-	</div>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-	<script src="{{ asset('assets/js/app.js')}}"></script>
+  <!-- FontAwesome Icon Picker JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fontawesome-iconpicker/3.2.0/js/fontawesome-iconpicker.min.js"></script>
 
+  <!-- SweetAlert2 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <!-- Custom App JS -->
+  <script src="{{ asset('assets/js/app.js')}}"></script>
+
+ 
 	<script>
 		document.addEventListener("DOMContentLoaded", function() {
 			var ctx = document.getElementById("chartjs-dashboard-line").getContext("2d");
@@ -271,6 +273,8 @@
 			});
 		});
 	</script>
+
+	@yield('scripts')
 
 </body>
 

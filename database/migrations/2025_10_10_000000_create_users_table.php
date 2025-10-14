@@ -13,21 +13,19 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('full_name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('phone');
-            $table->string('gender');
-            $table->date('dob');
-            $table->string('present_address');
-            $table->string('permanent_address');
+            $table->enum('gender', ['male', 'female']);
             $table->string('employee_id');
-            $table->unsignedBigInteger('department_id');
-            $table->unsignedBigInteger('designation_id');
+            $table->foreignId('role_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('department_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('designation_id')->constrained()->cascadeOnDelete();
             $table->date('join_date');
             $table->string('profile_photo');
-            $table->enum('status', ['active', 'inactive'])->default('active');
+            $table->enum('status', ['active', 'inactive']);
             $table->rememberToken();
             $table->timestamps();
         });

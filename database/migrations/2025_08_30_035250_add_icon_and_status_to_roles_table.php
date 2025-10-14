@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('roles', function (Blueprint $table) {
-            $table->string('icon')->nullable();
+            $table->string('icon_class')->required();
             $table->string('dashboard_route');
             $table->enum('status', ['active', 'inactive'])->default('active');
         });
@@ -24,7 +24,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('roles', function (Blueprint $table) {
-            $table->dropColumn('icon');
+            $table->dropColumn('icon_class');
             $table->dropColumn('status');
         });
     }

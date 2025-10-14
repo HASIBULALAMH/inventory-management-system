@@ -43,19 +43,18 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::delete('permissions/delete/{id}', [PermissionController::class, 'delete'])->name('permissions.delete');
     
     //user 
-    Route::get('users', [UserController::class, 'list'])->name('users.list');
-    Route::get('users/create', [UserController::class, 'create'])->name('users.create');
-    Route::post('users/store', [UserController::class, 'store'])->name('users.store');
-    Route::get('users/edit/{id}', [UserController::class, 'edit'])->name('users.edit');
-    Route::put('users/update/{id}', [UserController::class, 'update'])->name('users.update');
-    Route::delete('users/delete/{id}', [UserController::class, 'delete'])->name('users.delete');
-
-
-    //ajex user 
-    Route::get('/user/get-states/{country}',[UserController::class,'getStates']);
-    Route::get('/user/get-cities/{state}', [UserController::class,'getCities']);
-    Route::get('/user/get-zipcode/{city}', [UserController::class,'getZipcode']);
-    
+    Route::group([
+        'prefix' => 'users',
+        'as' => 'users.'
+    ], function () {
+    Route::get('users/list', [UserController::class, 'list'])->name('list');
+    Route::get('users/create', [UserController::class, 'create'])->name('create');
+    Route::post('users/store', [UserController::class, 'store'])->name('store');
+    Route::get('users/edit/{id}', [UserController::class, 'edit'])->name('edit');
+    Route::put('users/update/{id}', [UserController::class, 'update'])->name('update');
+    Route::delete('users/delete/{id}', [UserController::class, 'delete'])->name('delete');
+    });
+ 
     
     //department
     Route::get('departments', [DepartmentController::class, 'list'])->name('departments.list');
@@ -65,14 +64,15 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::put('departments/update/{id}', [DepartmentController::class, 'update'])->name('departments.update');
     Route::delete('departments/delete/{id}', [DepartmentController::class, 'delete'])->name('departments.delete');
     
-    //designation
-    Route::get('designations', [DesignationController::class, 'list'])->name('designations.list');
-    Route::get('designations/create', [DesignationController::class, 'create'])->name('designations.create');
-    Route::post('designations/store', [DesignationController::class, 'store'])->name('designations.store');
-    Route::get('designations/edit/{id}', [DesignationController::class, 'edit'])->name('designations.edit');
-    Route::put('designations/update/{id}', [DesignationController::class, 'update'])->name('designations.update');
-    Route::delete('designations/delete/{id}', [DesignationController::class, 'delete'])->name('designations.delete');
-    
+  // Designation Routes
+Route::prefix('designations')->name('designations.')->group(function () {
+    Route::get('designations/list', [DesignationController::class, 'list'])->name('list');
+    Route::get('designations/create', [DesignationController::class, 'create'])->name('create');
+    Route::post('designations/store', [DesignationController::class, 'store'])->name('store');
+    Route::get('designations/edit/{id}', [DesignationController::class, 'edit'])->name('edit');
+    Route::put('designations/update/{id}', [DesignationController::class, 'update'])->name('update');
+    Route::delete('designations/delete/{id}', [DesignationController::class, 'delete'])->name('delete');
+});
     // Location   
     Route::group([
         'prefix' => 'locations',

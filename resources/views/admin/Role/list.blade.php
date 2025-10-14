@@ -67,11 +67,9 @@
             <tr>
               <td>{{$role->id}}</td>
               <td>{{$role->name}}</td>
-              <td>
-                @if($role->icon)
-                  <img src="{{ asset('/uploads/role/'.$role->icon) }}" width="50" height="50" class="img-fluid rounded" alt="{{ $role->name }}">
-                @endif
-              </td>
+              <td><i class="{{ $role->icon_class }}"></i></td>
+
+
               <td> 
                 @if ($role->status == 'active')
                 <span class="status-dot dot-active"></span>

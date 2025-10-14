@@ -18,7 +18,8 @@ class RoleController extends Controller
 
     public function create()
     {
-        return view('admin.role.create');
+        $role = new Role();
+        return view('admin.role.create', compact('role'));
     }
 
     //store method
@@ -26,8 +27,8 @@ class RoleController extends Controller
     {
         // validation rule
         $validate = Validator::make($request->all(), [
-            'name' => 'required|max:255|unique:roles,name', // Ensures role name is unique in the 'roles' table
-            'icon' => 'required|image|mimes:jpeg,png,jpg,gif|max:10240',
+            'name' => 'required|max:255|unique:roles,name',
+           'icon_class' => 'required|string|starts_with:fa-',
             'status' => 'required|in:active,inactive',
         ]);
 
@@ -36,13 +37,7 @@ class RoleController extends Controller
         }
 
   
-        //icon upload
-        $fileName = null;
-        if ($request->hasFile('icon')) {
-            $file = $request->file('icon');
-            $fileName = time().'_'.uniqid().'.'.$file->getClientOriginalExtension();
-            $file->move(public_path('uploads/role'), $fileName);
-        }
+      
             
         //auto genarate dashboard_route
         $dashboardRoute = strtolower($request->name) . '.dashboard';    
@@ -52,7 +47,7 @@ class RoleController extends Controller
         // quarry
         Role::create([
             'name' => $request->name,
-            'icon' => $fileName,
+            'icon_class' => $request->icon_class,
             'status' => $request->status,
             'guard_name' => 'web', 
             'dashboard_route' => $dashboardRoute,
@@ -68,8 +63,8 @@ class RoleController extends Controller
 
         // validation
         $validation = Validator::make($request->all(), [
-            'name' => 'required|max:255|unique:roles,name,' . $id, // Ignores current role's ID for uniqueness check
-            'icon' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
+            'name' => 'required|max:255|unique:roles,name,' . $id,
+           'icon_class' => 'required|string|starts_with:fa-',
             'status' => 'required|in:active,inactive',
         ]);
 
@@ -79,24 +74,11 @@ class RoleController extends Controller
 
      
 
-        // Handle file upload 
-        $fileName = $role->icon;
-        if ($request->hasFile('icon')) {
-            // Delete old icon if exists
-            if ($role->icon && file_exists(public_path('uploads/role/' . $role->icon))) {
-                unlink(public_path('uploads/role/' . $role->icon));
-            }
-            
-            $file = $request->file('icon');
-            $fileName = time().'_'.uniqid().'.'.$file->getClientOriginalExtension();
-            $file->move(public_path('uploads/role'), $fileName);
-        }
-
         try {
             // Update the role's attributes
             $role->update([
                 'name' => $request->name,
-                'icon' => $fileName,
+                'icon_class' => $request->icon_class,
                 'status' => $request->status,
                 'guard_name' => 'web', 
             ]);
@@ -105,11 +87,6 @@ class RoleController extends Controller
                            ->with('success', 'Role updated successfully');
 
         } catch (\Exception $e) {
-            // Line 116: If there's an error and a new file was uploaded, delete it
-            if ($request->hasFile('icon') && file_exists(public_path('uploads/role/' . $fileName))) {
-                unlink(public_path('uploads/role/' . $fileName));
-            }
-            
             return redirect()->back()
                            ->withInput()
                            ->with('error', 'Error updating role: ' . $e->getMessage());
@@ -129,10 +106,6 @@ class RoleController extends Controller
     {
         $role = Role::find($id);
         if ($role) {
-            // Line 133: Before deleting, ensure to delete the associated icon file if it exists
-            if ($role->icon && file_exists(public_path('uploads/role/' . $role->icon))) {
-                unlink(public_path('uploads/role/' . $role->icon));
-            }
             $role->delete();
          }
          return redirect()->route('admin.roles.list')->with('success', 'Role deleted successfully');

@@ -49,15 +49,19 @@
           <label for="name" class="form-label">Role Name</label>
           <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $role->name) }}" required>
         </div>
-       <div>
-        <label for="icon" class="form-label">Role Icon</label>
-        <input type="file" class="form-control" id="icon" name="icon" value="{{ $role->icon, old('icon', $role->icon) }}" placeholder=" " required>
-       </div>
+           <!--role icon-->
+        <div class="mb-3">
+          <label for="icon_class" class="form-label">Role Icon</label>
+          <input type="text" class="form-control iconpicker" id="icon_class" name="icon_class" 
+                placeholder="Select icon" value="{{ old('icon_class', $role->icon_class ?? '') }}">
+        </div>
+
+
         <div class="mb-3">
           <label for="status" class="form-label">Status</label>
           <select class="form-select" id="status" name="status" value="{{ old('status', $role->status) }}" required>
-            <option value="active" selected>Active</option>
-            <option value="inactive">Inactive</option>
+                 <option value="active" {{ old('status', $role->status) == 'active' ? 'selected' : '' }}>Active</option>
+                 <option value="inactive" {{ old('status', $role->status) == 'inactive' ? 'selected' : '' }}>Inactive</option>
           </select>
         </div>
         <button type="submit" class="btn btn-submit">
@@ -67,8 +71,18 @@
     </div>
   </div>
 </div>
-
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+ <!-- Initialize icon picker globally -->
+ <script>
+    $(document).ready(function() {
+        $('.iconpicker').iconpicker({
+            placement: 'bottom',       // Picker popup location
+            hideOnSelect: true,        // Close after selecting
+            inputSearch: true,         // Search icons
+            templates: {
+                searchInput: '<input type="search" class="form-control iconpicker-search" placeholder="Search icons">'
+            }
+        });
+    });
+  </script>
 
 @endsection

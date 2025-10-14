@@ -1,139 +1,104 @@
 @extends('layout.master')
 
 @section('content')
-
-<style>
-  .desig-form-card {
-    border: 0;
-    border-radius: 1rem;
-    box-shadow: 0 10px 25px rgba(0,0,0,.06);
-    overflow: hidden;
-  }
-  .desig-form-card .card-header {
-    background: linear-gradient(135deg, #20c997, #6f42c1);
-    color: #fff;
-    padding: 1rem 1.25rem;
-  }
-  .form-label {
-    font-weight: 500;
-    color: #495057;
-  }
-  .form-control, .form-select {
-    border-radius: .6rem;
-    padding: .6rem .9rem;
-  }
-  .btn-gradient {
-    background: linear-gradient(135deg, #20c997, #6f42c1);
-    border: 0;
-    color: #fff;
-    border-radius: .6rem;
-    transition: all .3s ease;
-  }
-  .btn-gradient:hover {
-    opacity: .9;
-    transform: translateY(-2px);
-  }
-  .code-preview {
-    background-color: #f8f9fa;
-    padding: 8px 12px;
-    border-radius: 0.6rem;
-    font-family: monospace;
-    border: 1px solid #dee2e6;
-  }
-</style>
-
-<div class="container my-4">
-  <div class="card desig-form-card">
-    <div class="card-header d-flex align-items-center justify-content-between">
-      <h5 class="mb-0"><i class="fa-solid fa-plus-circle me-2"></i>Create Designation</h5>
-      <a href="{{ route('admin.designations.list') }}" class="btn btn-light btn-sm"><i class="fa-solid fa-list me-1"></i>Designation List</a>
+<div class="container-fluid py-4">
+  <div class="card shadow border-0">
+    <div class="card-header bg-gradient-primary text-white d-flex justify-content-between align-items-center">
+      <h5 class="mb-0"><i class="fas fa-briefcase me-2"></i>Create Designation</h5>
+      <a href="{{ route('admin.designations.list') }}" class="btn btn-light btn-sm">
+        <i class="fas fa-list-ul me-1"></i>Designation List
+      </a>
     </div>
 
     <div class="card-body">
-      <form action="{{ route('admin.designations.store') }}" method="POST">
+      <form id="designationForm" action="{{ route('admin.designations.store') }}" method="POST">
         @csrf
-        <div class="row g-3">
-          <!-- Designation Name -->
+        <div class="row g-4">
+          
+          <h6 class="fw-bold text-primary mb-2">🏢 Designation Details</h6>
+          <hr class="mt-0 mb-3">
+
           <div class="col-md-6">
-            <label for="name" class="form-label">Designation Name <span class="text-danger">*</span></label>
-            <input type="text" class="form-control" id="name" name="name" required 
-                   placeholder="Enter designation name" onkeyup="generateCode()">
-            @error('name')
-              <div class="text-danger small">{{ $message }}</div>
-            @enderror
+            <label class="form-label required">Designation Name</label>
+            <input type="text" name="name" id="name" class="form-control" placeholder="Enter designation name" required>
           </div>
 
-          <!-- Auto-generated Code -->
           <div class="col-md-6">
             <label class="form-label">Designation Code</label>
-            <div class="code-preview" id="codePreview">CODE_WILL_APPEAR_HERE</div>
-            <input type="hidden" name="code" id="codeInput">
-            <small class="text-muted">Code is auto-generated from the designation name</small>
+            <input type="text" name="code" id="code" class="form-control" placeholder="CODE_WILL_APPEAR_HERE" readonly>
+            <small class="text-muted">Auto-generated from designation name</small>
           </div>
 
-          <!-- Department -->
           <div class="col-md-6">
-            <label for="department_id" class="form-label">Department <span class="text-danger">*</span></label>
-            <select class="form-select" id="department_id" name="department_id" required>
-              <option value="" selected disabled>Select Department</option>
-              @foreach($departments as $department)
-                <option value="{{ $department->id }}">{{ $department->name }}</option>
+            <label class="form-label required">Department</label>
+            <select name="department_id" class="form-select" required>
+              <option value="">-- Select Department --</option>
+              @foreach ($departments as $dept)
+                <option value="{{ $dept->id }}">{{ $dept->name }}</option>
               @endforeach
             </select>
-            @error('department_id')
-              <div class="text-danger small">{{ $message }}</div>
-            @enderror
           </div>
 
-          <!-- Status -->
           <div class="col-md-6">
-            <label class="form-label">Status <span class="text-danger">*</span></label>
-            <select class="form-select" name="status" required>
+            <label class="form-label required">Status</label>
+            <select name="status" class="form-select" required>
               <option value="active">Active</option>
               <option value="inactive">Inactive</option>
             </select>
           </div>
+        </div>
 
-          <!-- Submit Button -->
-          <div class="col-12 mt-4">
-            <button type="submit" class="btn btn-gradient px-4">
-              <i class="fa-solid fa-save me-2"></i>Save Designation
-            </button>
-          </div>
+        <div class="d-flex justify-content-end mt-4">
+          <button type="reset" class="btn btn-outline-secondary me-2">
+            <i class="fas fa-undo"></i> Reset
+          </button>
+          <button type="submit" class="btn btn-success">
+            <i class="fas fa-save me-1"></i> Save Designation
+          </button>
         </div>
       </form>
     </div>
   </div>
 </div>
 
-<script>
-function generateCode() {
-    const nameInput = document.getElementById('name');
-    const codePreview = document.getElementById('codePreview');
-    const codeInput = document.getElementById('codeInput');
-    
-    if (nameInput.value.trim() === '') {
-        codePreview.textContent = 'CODE_WILL_APPEAR_HERE';
-        codeInput.value = '';
-        return;
-    }
-    
-    // Convert to uppercase, replace spaces with underscores, and remove special characters
-    let code = nameInput.value
-        .toUpperCase()
-        .replace(/[^\w\s]/gi, '') // Remove special characters
-        .replace(/\s+/g, '_')      // Replace spaces with underscores
-        .replace(/_+/g, '_')        // Replace multiple underscores with single
-        .replace(/^_+|_+$/g, '');   // Remove leading/trailing underscores
-    
-    // If code is empty after processing (e.g., only special characters were entered)
-    if (code === '') {
-        code = 'DESIGNATION';
-    }
-    
-    codePreview.textContent = code;
-    codeInput.value = code;
-}
-</script>
+<style>
+  .required::after {
+    content: " *";
+    color: red;
+    font-weight: bold;
+  }
+  .bg-gradient-primary {
+    background: linear-gradient(135deg, #20c997, #6f42c1);
+  }
+  .form-control:focus, .form-select:focus {
+    border-color: #6f42c1;
+    box-shadow: 0 0 0 0.15rem rgba(111, 66, 193, 0.25);
+  }
+</style>
+@endsection
 
+@section('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const nameInput = document.querySelector('#name');
+  const codeInput = document.querySelector('#code');
+
+  // Auto-generate code from name
+  nameInput.addEventListener('input', function() {
+    let name = this.value.trim();
+    if (name.length > 0) {
+      // Generate a code from the name (e.g., "Senior Developer" -> "SENIOR_DEVELOPER")
+      let code = name
+        .toUpperCase()
+        .replace(/[^\w\s]/g, '')  // Remove special characters
+        .trim()
+        .replace(/\s+/g, '_');     // Replace spaces with underscores
+      
+      codeInput.value = code;
+    } else {
+      codeInput.value = '';
+    }
+  });
+});
+</script>
 @endsection
