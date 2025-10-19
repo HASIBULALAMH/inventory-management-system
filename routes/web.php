@@ -31,6 +31,9 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::put('roles/update/{id}', [RoleController::class, 'update'])->name('roles.update');
     Route::delete('roles/delete/{id}', [RoleController::class, 'delete'])->name('roles.delete');
 
+    //audit log
+    Route::get('roles/audit-log/{id}', [RoleController::class, 'auditLog'])->name('roles.audit-log');
+    //assign permission
     Route::get('roles/permissions/assign/{id}', [RoleController::class, 'permissionAssign'])->name('roles.permissions.assign');
     Route::post('roles/permissions/assign/store/{id}', [RoleController::class, 'permissionAssignStore'])->name('roles.permissions.assign.store');
     

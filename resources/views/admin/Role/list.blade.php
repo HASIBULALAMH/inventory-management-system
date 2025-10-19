@@ -85,6 +85,9 @@
               <td class="text-end">
                
                 <div class="d-flex gap-2 justify-content-end">
+                     <a href="{{ route('admin.roles.audit-log', $role->id) }}" class="btn btn-outline-secondary btn-sm rounded-circle" data-bs-toggle="tooltip" data-bs-title="View Audit Log">
+                 <i class="fa-solid fa-audit"></i>
+                  </a>
                 <a href="{{ route('admin.roles.permissions.assign', $role->id) }}" class="btn btn-outline-primary btn-sm rounded-circle" data-bs-toggle="tooltip" data-bs-title="Assign Permissions" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;">
                   <i class="fa-solid fa-user-shield"></i>
                 </a>
